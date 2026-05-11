@@ -187,9 +187,9 @@ impl Render for EditPredictionButton {
                 let project = self.project.clone();
 
                 let tooltip_meta = if has_api_key {
-                    "Powered by Codestral"
+                    "由 Codestral 驅動"
                 } else {
-                    "Missing API key for Codestral"
+                    "缺少 Codestral 的 API key"
                 };
 
                 div().child(
@@ -232,7 +232,7 @@ impl Render for EditPredictionButton {
                                 }),
                             move |_window, cx| {
                                 Tooltip::with_meta(
-                                    "Edit Prediction",
+                                    "編輯預測",
                                     Some(&ToggleMenu),
                                     tooltip_meta,
                                     cx,
@@ -302,16 +302,16 @@ impl Render for EditPredictionButton {
                                 let settings = all_language_settings(None, cx);
                                 let tooltip_meta = match settings.edit_predictions.ollama.as_ref() {
                                     Some(settings) if !settings.model.trim().is_empty() => {
-                                        format!("Powered by Ollama ({})", settings.model)
+                                        format!("由 Ollama 驅動（{}）", settings.model)
                                     }
                                     _ => {
-                                        "Ollama model not configured — configure a model before use"
+                                        "尚未設定 Ollama 模型，請先設定後再使用"
                                             .to_string()
                                     }
                                 };
 
                                 Tooltip::with_meta(
-                                    "Edit Prediction",
+                                    "編輯預測",
                                     Some(&ToggleMenu),
                                     tooltip_meta,
                                     cx,
@@ -352,24 +352,24 @@ impl Render for EditPredictionButton {
                         missing_token = edit_prediction::EditPredictionStore::try_global(cx)
                             .is_some_and(|ep_store| !ep_store.read(cx).has_mercury_api_token(cx));
                         tooltip_meta = if missing_token {
-                            "Missing API key for Mercury"
+                            "缺少 Mercury 的 API key"
                         } else if mercury_has_error {
-                            "Mercury free tier limit reached"
+                            "Mercury 免費方案額度已達上限"
                         } else {
-                            "Powered by Mercury"
+                            "由 Mercury 驅動"
                         };
                     }
                     _ => {
                         ep_icon = if enabled { icons.base } else { icons.disabled };
-                        tooltip_meta = "Powered by Zeta"
+                        tooltip_meta = "由 Zeta 驅動"
                     }
                 };
 
                 if edit_prediction::should_show_upsell_modal(cx) {
                     let tooltip_meta = if self.user_store.read(cx).current_user().is_some() {
-                        "Choose a Plan"
+                        "選擇方案"
                     } else {
-                        "Configure a Provider"
+                        "設定提供者"
                     };
 
                     return div().child(
@@ -378,7 +378,7 @@ impl Render for EditPredictionButton {
                             .indicator(Indicator::dot().color(Color::Muted))
                             .indicator_border_color(Some(cx.theme().colors().status_bar_background))
                             .tooltip(move |_window, cx| {
-                                Tooltip::with_meta("Edit Predictions", None, tooltip_meta, cx)
+                                Tooltip::with_meta("編輯預測", None, tooltip_meta, cx)
                             })
                             .on_click(cx.listener(move |_, _, window, cx| {
                                 telemetry::event!(
@@ -437,17 +437,17 @@ impl Render for EditPredictionButton {
                     .when(!self.popover_menu_handle.is_deployed(), |element| {
                         element.tooltip(move |_window, cx| {
                             let description = if !enabled {
-                                "Disabled For This File"
+                                "此檔案已停用"
                             } else if zed_cloud_needs_sign_in {
-                                "Sign In Or Configure a Provider"
+                                "登入或設定提供者"
                             } else if provider_unavailable || show_editor_predictions {
                                 tooltip_meta
                             } else {
-                                "Enable to Use"
+                                "啟用後即可使用"
                             };
 
                             Tooltip::with_meta(
-                                "Edit Prediction",
+                                "編輯預測",
                                 Some(&ToggleMenu),
                                 description,
                                 cx,
@@ -585,7 +585,7 @@ impl EditPredictionButton {
             .collect();
 
         if !providers.is_empty() {
-            menu = menu.separator().header("Providers");
+            menu = menu.separator().header("提供者");
 
             for provider in providers {
                 let Some(name) = provider.display_name() else {
@@ -602,7 +602,7 @@ impl EditPredictionButton {
                         .disabled(is_disabled_zed_provider)
                         .when(is_disabled_zed_provider, |item| {
                             item.documentation_aside(DocumentationSide::Left, move |_cx| {
-                                Label::new("Edit predictions are disabled for this organization.")
+                                Label::new("此組織已停用編輯預測。")
                                     .into_any_element()
                             })
                         })
@@ -618,7 +618,7 @@ impl EditPredictionButton {
 
     fn add_configure_providers_item(&self, menu: ContextMenu) -> ContextMenu {
         menu.separator().item(
-            ContextMenuEntry::new("Configure Providers")
+            ContextMenuEntry::new("設定提供者")
                 .icon(IconName::Settings)
                 .icon_position(IconPosition::Start)
                 .icon_color(Color::Muted)
@@ -647,7 +647,7 @@ impl EditPredictionButton {
         let project = self.project.clone();
         ContextMenu::build(window, cx, |menu, _, cx| {
             let menu = menu
-                .entry("Sign In to Copilot", None, move |window, cx| {
+                .entry("登入 Copilot", None, move |window, cx| {
                     telemetry::event!(
                         "Edit Prediction Menu Action",
                         action = "sign_in",
@@ -661,7 +661,7 @@ impl EditPredictionButton {
                         copilot_ui::initiate_sign_in(copilot, window, cx);
                     }
                 })
-                .entry("Disable Copilot", None, {
+                .entry("停用 Copilot", None, {
                     let fs = fs.clone();
                     move |_window, cx| {
                         telemetry::event!(
@@ -689,7 +689,7 @@ impl EditPredictionButton {
         let fs = self.fs.clone();
         let line_height = window.line_height();
 
-        menu = menu.header("Show Edit Predictions For");
+        menu = menu.header("顯示編輯預測於");
 
         let language_state = self.language.as_ref().map(|language| {
             (
@@ -699,7 +699,7 @@ impl EditPredictionButton {
         });
 
         if let Some(editor_focus_handle) = self.editor_focus_handle.clone() {
-            let entry = ContextMenuEntry::new("This Buffer")
+            let entry = ContextMenuEntry::new("此緩衝區")
                 .toggleable(IconPosition::Start, self.editor_show_predictions)
                 .action(Box::new(editor::actions::ToggleEditPrediction))
                 .handler(move |window, cx| {
@@ -716,7 +716,7 @@ impl EditPredictionButton {
                         entry
                             .disabled(true)
                             .documentation_aside(DocumentationSide::Left, move |_cx| {
-                                Label::new(format!("Edit predictions cannot be toggled for this buffer because they are disabled for {}", language.name()))
+                                Label::new(format!("此緩衝區無法切換編輯預測，因為 {} 已停用此功能。", language.name()))
                                     .into_any_element()
                             })
                     );
@@ -749,7 +749,7 @@ impl EditPredictionButton {
         let settings = AllLanguageSettings::get_global(cx);
 
         let globally_enabled = settings.show_edit_predictions(None, cx);
-        let entry = ContextMenuEntry::new("All Files")
+        let entry = ContextMenuEntry::new("所有檔案")
             .toggleable(IconPosition::Start, globally_enabled)
             .action(workspace::ToggleEditPrediction.boxed_clone())
             .handler(|window, cx| {
@@ -764,12 +764,12 @@ impl EditPredictionButton {
 
         menu = menu
                 .separator()
-                .header("Display Modes")
+                .header("顯示模式")
                 .item(
-                    ContextMenuEntry::new("Eager")
+                    ContextMenuEntry::new("積極")
                         .toggleable(IconPosition::Start, eager_mode)
                         .documentation_aside(DocumentationSide::Left, move |_| {
-                            Label::new("Display predictions inline when there are no language server completions available.").into_any_element()
+                            Label::new("當沒有語言伺服器補全可用時，直接以行內方式顯示預測。").into_any_element()
                         })
                         .handler({
                             let fs = fs.clone();
@@ -784,10 +784,10 @@ impl EditPredictionButton {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Subtle")
+                    ContextMenuEntry::new("低調")
                         .toggleable(IconPosition::Start, subtle_mode)
                         .documentation_aside(DocumentationSide::Left, move |_| {
-                            Label::new("Display predictions inline only when holding a modifier key (alt by default).").into_any_element()
+                            Label::new("只有按住修飾鍵時才以行內方式顯示預測（預設為 Alt）。").into_any_element()
                         })
                         .handler({
                             let fs = fs.clone();
@@ -802,7 +802,7 @@ impl EditPredictionButton {
                         }),
                 );
 
-        menu = menu.separator().header("Privacy");
+        menu = menu.separator().header("隱私");
 
         if matches!(provider, EditPredictionProvider::Zed) {
             if let Some(provider) = &self.edit_prediction_provider {
@@ -820,7 +820,7 @@ impl EditPredictionButton {
                     };
 
                     menu = menu.item(
-                        ContextMenuEntry::new("Training Data Collection")
+                        ContextMenuEntry::new("訓練資料蒐集")
                             .toggleable(IconPosition::Start, data_collection.is_enabled())
                             .icon(icon_name)
                             .icon_color(icon_color)
@@ -828,25 +828,25 @@ impl EditPredictionButton {
                             .documentation_aside(DocumentationSide::Left, move |cx| {
                                 let (msg, label_color, icon_name, icon_color) = match (is_open_source, is_collecting) {
                                     (true, true) => (
-                                        "Project identified as open source, and you're sharing data.",
+                                        "專案已識別為開源，且你目前有分享資料。",
                                         Color::Default,
                                         IconName::Check,
                                         Color::Success,
                                     ),
                                     (true, false) => (
-                                        "Project identified as open source, but you're not sharing data.",
+                                        "專案已識別為開源，但你目前沒有分享資料。",
                                         Color::Muted,
                                         IconName::Close,
                                         Color::Muted,
                                     ),
                                     (false, true) => (
-                                        "Project not identified as open source. No data captured.",
+                                        "專案未識別為開源，不會擷取任何資料。",
                                         Color::Muted,
                                         IconName::Close,
                                         Color::Muted,
                                     ),
                                     (false, false) => (
-                                        "Project not identified as open source, and setting turned off.",
+                                        "專案未識別為開源，且此設定已關閉。",
                                         Color::Muted,
                                         IconName::Close,
                                         Color::Muted,
@@ -856,9 +856,9 @@ impl EditPredictionButton {
                                     .gap_2()
                                     .child(
                                         Label::new(indoc!{
-                                            "Help us improve our open dataset model by sharing data from open source repositories. \
-                                            Zed must detect a license file in your repo for this setting to take effect. \
-                                            Files with sensitive data and secrets are excluded by default."
+                                            "分享開源存放庫資料可協助我們改進開放資料集模型。\
+                                            Zed 必須在你的存放庫中偵測到授權檔案，此設定才會生效。\
+                                            含有敏感資料與機密的檔案預設會被排除。"
                                         })
                                     )
                                     .child(
@@ -894,7 +894,7 @@ impl EditPredictionButton {
 
                     if is_collecting && !is_open_source {
                         menu = menu.item(
-                            ContextMenuEntry::new("No data captured.")
+                            ContextMenuEntry::new("未擷取任何資料。")
                                 .disabled(true)
                                 .icon(IconName::Close)
                                 .icon_color(Color::Error)
@@ -906,12 +906,12 @@ impl EditPredictionButton {
         }
 
         menu = menu.item(
-            ContextMenuEntry::new("Configure Excluded Files")
+            ContextMenuEntry::new("設定排除檔案")
                 .icon(IconName::LockOutlined)
                 .icon_color(Color::Muted)
                 .documentation_aside(DocumentationSide::Left, |_| {
                     Label::new(indoc!{"
-                        Open your settings to add sensitive paths for which Zed will never predict edits."}).into_any_element()
+                        開啟設定以加入敏感路徑，Zed 將永遠不會對這些路徑進行編輯預測。"}).into_any_element()
                 })
                 .handler(move |window, cx| {
                     telemetry::event!(
@@ -931,7 +931,7 @@ impl EditPredictionButton {
                     }
                 }),
         ).item(
-            ContextMenuEntry::new("View Docs")
+            ContextMenuEntry::new("查看文件")
                 .icon(IconName::FileGeneric)
                 .icon_color(Color::Muted)
                 .handler(move |_, cx| {
@@ -952,7 +952,7 @@ impl EditPredictionButton {
                     edit_prediction_types::EditPredictionIconSet::new(IconName::ZedPredict)
                 });
             menu = menu.item(
-                ContextMenuEntry::new("This file is excluded.")
+                ContextMenuEntry::new("此檔案已被排除。")
                     .disabled(true)
                     .icon(icons.disabled)
                     .icon_size(IconSize::Small),
@@ -962,9 +962,9 @@ impl EditPredictionButton {
         if let Some(editor_focus_handle) = self.editor_focus_handle.clone() {
             menu = menu
                 .separator()
-                .header("Actions")
+                .header("動作")
                 .entry(
-                    "Predict Edit at Cursor",
+                    "在游標位置預測編輯",
                     Some(Box::new(ShowEditPrediction)),
                     {
                         let editor_focus_handle = editor_focus_handle.clone();
@@ -980,7 +980,7 @@ impl EditPredictionButton {
                 .context(editor_focus_handle)
                 .when(
                     cx.has_flag::<PredictEditsRatePredictionsFeatureFlag>(),
-                    |this| this.action("Rate Predictions", RatePredictions.boxed_clone()),
+                    |this| this.action("評分預測結果", RatePredictions.boxed_clone()),
                 );
         }
 
@@ -1016,7 +1016,7 @@ impl EditPredictionButton {
             let menu = menu
                 .separator()
                 .item(
-                    ContextMenuEntry::new("Copilot: Next Edit Suggestions")
+                    ContextMenuEntry::new("Copilot：下一步編輯建議")
                         .toggleable(IconPosition::Start, next_edit_suggestions)
                         .handler({
                             let fs = self.fs.clone();
@@ -1037,10 +1037,10 @@ impl EditPredictionButton {
                 )
                 .separator()
                 .link(
-                    "Go to Copilot Settings",
+                    "前往 Copilot 設定",
                     OpenBrowser { url: settings_url }.boxed_clone(),
                 )
-                .action("Sign Out", copilot::SignOut.boxed_clone());
+                .action("登出", copilot::SignOut.boxed_clone());
             menu
         })
     }
@@ -1079,15 +1079,15 @@ impl EditPredictionButton {
                 menu = menu
                     .custom_row(move |_window, cx| {
                         let description = indoc! {
-                            "You get 2,000 accepted suggestions at every keystroke for free, \
-                            powered by Zeta, our open-source, open-data model"
+                            "你可以免費使用 2,000 次已接受建議，
+                            由我們開源、開放資料的 Zeta 模型提供支援"
                         };
 
                         v_flex()
                             .max_w_64()
                             .h(rems_from_px(148.))
                             .child(render_zeta_tab_animation(cx))
-                            .child(Label::new("Edit Prediction"))
+                            .child(Label::new("編輯預測"))
                             .child(
                                 Label::new(description)
                                     .color(Color::Muted)
@@ -1096,7 +1096,7 @@ impl EditPredictionButton {
                             .into_any_element()
                     })
                     .separator()
-                    .entry("Sign In & Start Using", None, |window, cx| {
+                    .entry("登入並開始使用", None, |window, cx| {
                         telemetry::event!(
                             "Edit Prediction Menu Action",
                             action = "sign_in",
@@ -1113,7 +1113,7 @@ impl EditPredictionButton {
                             .detach();
                     })
                     .link_with_handler(
-                        "Learn More",
+                        "了解更多",
                         OpenBrowser {
                             url: zed_urls::edit_prediction_docs(cx),
                         }
@@ -1136,10 +1136,10 @@ impl EditPredictionButton {
                 if mercury_payment_required {
                     menu = menu
                         .header("Mercury")
-                        .item(ContextMenuEntry::new("Free tier limit reached").disabled(true))
+                        .item(ContextMenuEntry::new("免費方案額度已達上限").disabled(true))
                         .item(
                             ContextMenuEntry::new(
-                                "Upgrade to a paid plan to continue using the service",
+                                "升級為付費方案即可繼續使用此服務",
                             )
                             .disabled(true),
                         )
@@ -1151,7 +1151,7 @@ impl EditPredictionButton {
                     .as_ref()
                     .and_then(|provider| provider.usage(cx))
                 {
-                    menu = menu.header("Usage");
+                    menu = menu.header("用量");
                     menu = menu
                         .custom_entry(
                             move |_window, cx| {
@@ -1620,7 +1620,7 @@ fn emit_edit_prediction_menu_opened(
         .unwrap_or(false);
     telemetry::event!(
         "Toolbar Menu Opened",
-        name = "Edit Predictions",
+        name = "編輯預測",
         provider,
         file_extension,
         edit_predictions_enabled_for_language,

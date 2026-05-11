@@ -432,7 +432,7 @@ impl Render for QuickActionBar {
                             }
 
                             if supports_minimap {
-                                menu = menu.toggleable_entry("Minimap", minimap_enabled, IconPosition::Start, Some(editor::actions::ToggleMinimap.boxed_clone()), {
+                                menu = menu.toggleable_entry("小地圖", minimap_enabled, IconPosition::Start, Some(editor::actions::ToggleMinimap.boxed_clone()), {
                                     let editor = editor.clone();
                                     move |window, cx| {
                                         editor
@@ -449,7 +449,7 @@ impl Render for QuickActionBar {
                             }
 
                             if has_edit_prediction_provider {
-                                let mut edit_prediction_entry = ContextMenuEntry::new("Edit Predictions")
+                                let mut edit_prediction_entry = ContextMenuEntry::new("編輯預測")
                                     .toggleable(IconPosition::Start, edit_predictions_enabled_at_cursor && show_edit_predictions)
                                     .disabled(!edit_predictions_enabled_at_cursor)
                                     .action(
@@ -470,7 +470,7 @@ impl Render for QuickActionBar {
                                     });
                                 if !edit_predictions_enabled_at_cursor {
                                     edit_prediction_entry = edit_prediction_entry.documentation_aside(DocumentationSide::Left, |_| {
-                                        Label::new("You can't toggle edit predictions for this file as it is within the excluded files list.").into_any_element()
+                                        Label::new("此檔案位於排除清單中，無法切換編輯預測。").into_any_element()
                                     });
                                 }
 
@@ -481,7 +481,7 @@ impl Render for QuickActionBar {
 
                             if is_full {
                                 menu = menu.toggleable_entry(
-                                    "Diagnostics",
+                                    "診斷",
                                     diagnostics_enabled,
                                     IconPosition::Start,
                                     Some(ToggleDiagnostics.boxed_clone()),
@@ -502,7 +502,7 @@ impl Render for QuickActionBar {
                                 );
 
                                 if supports_inline_diagnostics {
-                                    let mut inline_diagnostics_item = ContextMenuEntry::new("Inline Diagnostics")
+                                    let mut inline_diagnostics_item = ContextMenuEntry::new("行內診斷")
                                         .toggleable(IconPosition::Start, diagnostics_enabled && inline_diagnostics_enabled)
                                         .action(ToggleInlineDiagnostics.boxed_clone())
                                         .handler({
@@ -520,7 +520,7 @@ impl Render for QuickActionBar {
                                             }
                                         });
                                     if !diagnostics_enabled {
-                                        inline_diagnostics_item = inline_diagnostics_item.disabled(true).documentation_aside(DocumentationSide::Left, |_|  Label::new("Inline diagnostics are not available until regular diagnostics are enabled.").into_any_element());
+                                        inline_diagnostics_item = inline_diagnostics_item.disabled(true).documentation_aside(DocumentationSide::Left, |_|  Label::new("必須先啟用一般診斷，才能使用行內診斷。").into_any_element());
                                     }
                                     menu = menu.item(inline_diagnostics_item)
                                 }
@@ -529,7 +529,7 @@ impl Render for QuickActionBar {
                             }
 
                             menu = menu.toggleable_entry(
-                                "Line Numbers",
+                                "行號",
                                 show_line_numbers,
                                 IconPosition::Start,
                                 Some(editor::actions::ToggleLineNumbers.boxed_clone()),
@@ -550,7 +550,7 @@ impl Render for QuickActionBar {
                             );
 
                             menu = menu.toggleable_entry(
-                                "Selection Menu",
+                                "選取選單",
                                 selection_menu_enabled,
                                 IconPosition::Start,
                                 Some(editor::actions::ToggleSelectionMenu.boxed_clone()),
@@ -571,7 +571,7 @@ impl Render for QuickActionBar {
                             );
 
                             menu = menu.toggleable_entry(
-                                "Auto Signature Help",
+                                "自動參數提示",
                                 auto_signature_help_enabled,
                                 IconPosition::Start,
                                 Some(editor::actions::ToggleAutoSignatureHelp.boxed_clone()),
@@ -594,7 +594,7 @@ impl Render for QuickActionBar {
                             menu = menu.separator();
 
                             menu = menu.toggleable_entry(
-                                "Inline Git Blame",
+                                "行內 Git Blame",
                                 git_blame_inline_enabled,
                                 IconPosition::Start,
                                 Some(editor::actions::ToggleGitBlameInline.boxed_clone()),
@@ -615,7 +615,7 @@ impl Render for QuickActionBar {
                             );
 
                             menu = menu.toggleable_entry(
-                                "Column Git Blame",
+                                "欄位 Git Blame",
                                 show_git_blame_gutter,
                                 IconPosition::Start,
                                 Some(git::Blame.boxed_clone()),
@@ -638,7 +638,7 @@ impl Render for QuickActionBar {
                             menu = menu.separator();
 
                             menu = menu.toggleable_entry(
-                                "Vim Mode",
+                                "Vim 模式",
                                 vim_mode_enabled,
                                 IconPosition::Start,
                                 None,
@@ -652,7 +652,7 @@ impl Render for QuickActionBar {
                                 },
                             );
                             menu = menu.toggleable_entry(
-                                "Helix Mode",
+                                "Helix 模式",
                                 helix_mode_enabled,
                                 IconPosition::Start,
                                 None,

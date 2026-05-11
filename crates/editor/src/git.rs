@@ -815,7 +815,7 @@ impl Editor {
                     .border_color(icon_color.opacity(0.5))
             })
             .child(Icon::new(IconName::Plus).size(IconSize::Small))
-            .tooltip(Tooltip::text("Add Review (drag to select multiple lines)"))
+            .tooltip(Tooltip::text("新增審閱（拖曳選取多行）"))
             .on_mouse_down(
                 gpui::MouseButton::Left,
                 cx.listener(move |editor, _event: &gpui::MouseDownEvent, window, cx| {
@@ -2228,7 +2228,7 @@ impl Editor {
                                 IconButton::new("diff-review-close", IconName::Close)
                                     .icon_color(ui::Color::Muted)
                                     .icon_size(action_icon_size)
-                                    .tooltip(Tooltip::text("Close"))
+                                    .tooltip(Tooltip::text("關閉"))
                                     .on_click(|_, window, cx| {
                                         window
                                             .dispatch_action(Box::new(crate::actions::Cancel), cx);
@@ -2238,7 +2238,7 @@ impl Editor {
                                 IconButton::new("diff-review-add", IconName::Return)
                                     .icon_color(ui::Color::Muted)
                                     .icon_size(action_icon_size)
-                                    .tooltip(Tooltip::text("Add comment"))
+                                    .tooltip(Tooltip::text("新增留言"))
                                     .on_click(|_, window, cx| {
                                         window.dispatch_action(
                                             Box::new(crate::actions::SubmitDiffReviewComment),
@@ -2398,7 +2398,7 @@ impl Editor {
                         )
                         .icon_color(ui::Color::Muted)
                         .icon_size(action_icon_size)
-                        .tooltip(Tooltip::text("Cancel"))
+                        .tooltip(Tooltip::text("取消"))
                         .on_click(move |_, window, cx| {
                             window.dispatch_action(
                                 Box::new(crate::actions::CancelEditReviewComment {
@@ -2415,7 +2415,7 @@ impl Editor {
                         )
                         .icon_color(ui::Color::Muted)
                         .icon_size(action_icon_size)
-                        .tooltip(Tooltip::text("Confirm"))
+                        .tooltip(Tooltip::text("確認"))
                         .on_click(move |_, window, cx| {
                             window.dispatch_action(
                                 Box::new(crate::actions::ConfirmEditReviewComment {
@@ -2649,7 +2649,7 @@ pub(super) fn render_diff_hunk_controls(
                         let focus_handle = editor.focus_handle(cx);
                         move |_window, cx| {
                             Tooltip::for_action_in(
-                                "Stage Hunk",
+                                "暫存區塊",
                                 &::git::ToggleStaged,
                                 &focus_handle,
                                 cx,
@@ -2675,7 +2675,7 @@ pub(super) fn render_diff_hunk_controls(
                         let focus_handle = editor.focus_handle(cx);
                         move |_window, cx| {
                             Tooltip::for_action_in(
-                                "Unstage Hunk",
+                                "取消暫存區塊",
                                 &::git::ToggleStaged,
                                 &focus_handle,
                                 cx,
@@ -2703,7 +2703,7 @@ pub(super) fn render_diff_hunk_controls(
                         let focus_handle = editor.focus_handle(cx);
                         move |_window, cx| {
                             Tooltip::for_action_in(
-                                "Restore Hunk",
+                                "還原區塊",
                                 &::git::Restore,
                                 &focus_handle,
                                 cx,
@@ -2734,7 +2734,7 @@ pub(super) fn render_diff_hunk_controls(
                         .tooltip({
                             let focus_handle = editor.focus_handle(cx);
                             move |_window, cx| {
-                                Tooltip::for_action_in("Next Hunk", &GoToHunk, &focus_handle, cx)
+                                Tooltip::for_action_in("下一個區塊", &GoToHunk, &focus_handle, cx)
                             }
                         })
                         .on_click({
@@ -2766,7 +2766,7 @@ pub(super) fn render_diff_hunk_controls(
                             let focus_handle = editor.focus_handle(cx);
                             move |_window, cx| {
                                 Tooltip::for_action_in(
-                                    "Previous Hunk",
+                                    "上一個區塊",
                                     &GoToPreviousHunk,
                                     &focus_handle,
                                     cx,

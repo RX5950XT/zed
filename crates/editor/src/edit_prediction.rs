@@ -1353,7 +1353,7 @@ impl Editor {
                                     .child(self.render_edit_prediction_popover_keystroke(
                                         keystroke, key_color, cx,
                                     ))
-                                    .child(Label::new("Preview").into_any_element())
+                                    .child(Label::new("預覽").into_any_element())
                                     .opacity(if has_completion { 1.0 } else { 0.4 }),
                             )
                         } else {
@@ -1786,7 +1786,7 @@ impl Editor {
         if target_display_point.row().as_f64() < scroll_top {
             let mut element = self
                 .render_edit_prediction_line_popover(
-                    "Jump to Edit",
+                    "跳轉至編輯",
                     Some(IconName::ArrowUp),
                     window,
                     cx,
@@ -1805,7 +1805,7 @@ impl Editor {
         } else if (target_display_point.row().as_f64() + 1.) > scroll_bottom {
             let mut element = self
                 .render_edit_prediction_line_popover(
-                    "Jump to Edit",
+                    "跳轉至編輯",
                     Some(IconName::ArrowDown),
                     window,
                     cx,
@@ -1823,7 +1823,7 @@ impl Editor {
             Some((element, origin))
         } else {
             self.render_edit_prediction_end_of_line_popover(
-                "Jump to Edit",
+                "跳轉至編輯",
                 editor_snapshot,
                 visible_row_range,
                 target_display_point,
@@ -2383,7 +2383,7 @@ impl Editor {
                         } else {
                             Icon::new(icons.up)
                         })
-                        .child(Label::new("Jump to Edit")),
+                        .child(Label::new("跳轉至編輯")),
                 )
             }
             EditPrediction::MoveOutside { snapshot, .. } => {

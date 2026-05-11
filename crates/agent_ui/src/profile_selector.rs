@@ -669,7 +669,7 @@ impl PickerDelegate for ProfilePickerDelegate {
                 .border_color(cx.theme().colors().border_variant)
                 .p_1p5()
                 .child(
-                    Button::new("configure", "Configure")
+                    Button::new("configure", "設定")
                         .full_width()
                         .style(ButtonStyle::Outlined)
                         .key_binding(

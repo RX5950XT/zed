@@ -261,17 +261,17 @@ pub fn deploy_context_menu(
                 .action("Go to Type Definition", Box::new(GoToTypeDefinition))
                 .action("Go to Implementation", Box::new(GoToImplementation))
                 .action(
-                    "Find All References",
+                    "尋找所有參照",
                     Box::new(FindAllReferences::default()),
                 )
                 .separator()
-                .action("Rename Symbol", Box::new(Rename))
+                .action("重新命名符號", Box::new(Rename))
                 .action("Format Buffer", Box::new(Format))
                 .when(format_selections, |cx| {
                     cx.action("Format Selections", Box::new(FormatSelections))
                 })
                 .action(
-                    "Show Code Actions",
+                    "顯示程式碼動作",
                     Box::new(ToggleCodeActions {
                         deployed_from: None,
                         quick_launch: false,

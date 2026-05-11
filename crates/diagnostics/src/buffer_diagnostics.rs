@@ -897,8 +897,8 @@ impl Render for BufferDiagnosticsEditor {
 
         let child = if error_count + warning_count == 0 {
             let label = match warning_count {
-                0 => "No problems in",
-                _ => "No errors in",
+                0 => "沒有問題",
+                _ => "沒有錯誤",
             };
 
             v_flex()
@@ -916,7 +916,7 @@ impl Render for BufferDiagnosticsEditor {
                         .child(
                             Button::new("open-file", filename)
                                 .style(ButtonStyle::Transparent)
-                                .tooltip(Tooltip::text("Open File"))
+                                .tooltip(Tooltip::text("開啟檔案"))
                                 .on_click(cx.listener(|buffer_diagnostics, _, window, cx| {
                                     if let Some(workspace) = Workspace::for_window(window, cx) {
                                         workspace.update(cx, |workspace, cx| {
@@ -935,10 +935,7 @@ impl Render for BufferDiagnosticsEditor {
                         ),
                 )
                 .when(self.summary.warning_count > 0, |div| {
-                    let label = match self.summary.warning_count {
-                        1 => "Show 1 warning".into(),
-                        warning_count => format!("Show {} warnings", warning_count),
-                    };
+                    let label = format!("顯示 {} 個警告", self.summary.warning_count);
 
                     div.child(
                         Button::new("diagnostics-show-warning-label", label).on_click(cx.listener(

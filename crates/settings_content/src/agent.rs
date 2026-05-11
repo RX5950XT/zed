@@ -28,8 +28,10 @@ use crate::DockPosition;
 pub enum SidebarDockPosition {
     /// Always show the sidebar on the left side.
     #[default]
+    #[strum(serialize = "左側")]
     Left,
     /// Always show the sidebar on the right side.
+    #[strum(serialize = "右側")]
     Right,
 }
 

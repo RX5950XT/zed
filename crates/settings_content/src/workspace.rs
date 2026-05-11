@@ -276,8 +276,11 @@ pub enum ShowDiagnostics {
 #[serde(rename_all = "snake_case")]
 pub enum ActivateOnClose {
     #[default]
+    #[strum(serialize = "依最近使用紀錄")]
     History,
+    #[strum(serialize = "相鄰分頁")]
     Neighbour,
+    #[strum(serialize = "左側相鄰分頁")]
     LeftNeighbour,
 }
 
@@ -319,12 +322,16 @@ pub struct ActivePaneModifiers {
 pub enum BottomDockLayout {
     /// Contained between the left and right docks
     #[default]
+    #[strum(serialize = "置中")]
     Contained,
     /// Takes up the full width of the window
+    #[strum(serialize = "全寬")]
     Full,
     /// Extends under the left dock while snapping to the right dock
+    #[strum(serialize = "靠左對齊")]
     LeftAligned,
     /// Extends under the right dock while snapping to the left dock
+    #[strum(serialize = "靠右對齊")]
     RightAligned,
 }
 
@@ -367,10 +374,13 @@ pub enum WindowDecorations {
 pub enum CloseWindowWhenNoItems {
     /// Match platform conventions by default, so "on" on macOS and "off" everywhere else
     #[default]
+    #[strum(serialize = "平台預設")]
     PlatformDefault,
     /// Close the window when there are no tabs
+    #[strum(serialize = "關閉視窗")]
     CloseWindow,
     /// Leave the window open when there are no tabs
+    #[strum(serialize = "保持視窗開啟")]
     KeepWindowOpen,
 }
 
@@ -402,11 +412,11 @@ impl CloseWindowWhenNoItems {
 pub enum CliDefaultOpenBehavior {
     /// Open directories as a new workspace in the current Zed window's sidebar.
     #[default]
-    #[strum(serialize = "Add to Existing Window")]
+    #[strum(serialize = "加入現有視窗")]
     ExistingWindow,
     /// Open directories in a new window, but reuse an existing window when
     /// opening files that are already part of an open project.
-    #[strum(serialize = "Open a New Window")]
+    #[strum(serialize = "在新視窗開啟")]
     NewWindow,
 }
 
@@ -428,13 +438,17 @@ pub enum CliDefaultOpenBehavior {
 pub enum RestoreOnStartupBehavior {
     /// Always start with an empty editor tab
     #[serde(alias = "none")]
+    #[strum(serialize = "空白分頁")]
     EmptyTab,
     /// Restore the workspace that was closed last.
+    #[strum(serialize = "上一個工作區")]
     LastWorkspace,
     /// Restore all workspaces that were open when quitting Zed.
     #[default]
+    #[strum(serialize = "上一個工作階段")]
     LastSession,
     /// Show the launchpad with recent projects (no tabs).
+    #[strum(serialize = "啟動畫面")]
     Launchpad,
 }
 
@@ -631,8 +645,10 @@ pub struct CenteredLayoutSettings {
 pub enum OnLastWindowClosed {
     /// Match platform conventions by default, so don't quit on macOS, and quit on other platforms
     #[default]
+    #[strum(serialize = "平台預設")]
     PlatformDefault,
     /// Quit the application the last window is closed
+    #[strum(serialize = "結束應用程式")]
     QuitApp,
 }
 

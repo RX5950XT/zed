@@ -134,7 +134,7 @@ impl Render for BufferSearchBar {
                             IconButton::new("diff-unified", IconName::DiffUnified)
                                 .icon_size(IconSize::Small)
                                 .toggle_state(diff_view_style == DiffViewStyle::Unified)
-                                .tooltip(Tooltip::text("Unified"))
+                                .tooltip(Tooltip::text("統一檢視"))
                                 .on_click({
                                     let splittable_editor = splittable_editor.downgrade();
                                     move |_, window, cx| {
@@ -166,10 +166,10 @@ impl Render for BufferSearchBar {
                                 .icon_size(IconSize::Small)
                                 .tooltip(Tooltip::element(move |_, cx| {
                                     let message = if is_split_set && !is_split_active {
-                                        format!("Split when wider than {} columns", min_columns)
+                                        format!("超過 {} 欄寬度時分割", min_columns)
                                             .into()
                                     } else {
-                                        SharedString::from("Split")
+                                        SharedString::from("分割檢視")
                                     };
 
                                     v_flex()
@@ -186,7 +186,7 @@ impl Render for BufferSearchBar {
                                                     Some(TextSize::Small.rems(cx).into()),
                                                     false,
                                                 ))
-                                                .child("click to change min width"),
+                                                .child("點擊以變更最小寬度"),
                                         )
                                         .into_any()
                                 }))
@@ -241,9 +241,9 @@ impl Render for BufferSearchBar {
                 .map(|editor: Entity<Editor>| editor.read(cx).has_any_buffer_folded(cx))
                 .unwrap_or_default();
             let (icon, tooltip_label) = if is_collapsed {
-                (IconName::ChevronUpDown, "Expand All Files")
+                (IconName::ChevronUpDown, "展開所有檔案")
             } else {
-                (IconName::ChevronDownUp, "Collapse All Files")
+                (IconName::ChevronDownUp, "收合所有檔案")
             };
 
             let collapse_expand_icon_button = |id| {
@@ -299,12 +299,12 @@ impl Render for BufferSearchBar {
 
         self.query_editor.update(cx, |query_editor, cx| {
             if query_editor.placeholder_text(cx).is_none() {
-                query_editor.set_placeholder_text("Search…", window, cx);
+                query_editor.set_placeholder_text("搜尋…", window, cx);
             }
         });
 
         self.replacement_editor.update(cx, |editor, cx| {
-            editor.set_placeholder_text("Replace with…", window, cx);
+            editor.set_placeholder_text("取代為…", window, cx);
         });
 
         let mut color_override = None;
@@ -392,7 +392,7 @@ impl Render for BufferSearchBar {
                     "buffer-search-bar-toggle",
                     IconName::Replace,
                     self.replace_enabled.then_some(ActionButtonState::Toggled),
-                    "Toggle Replace",
+                    "切換取代模式",
                     &ToggleReplace,
                     focus_handle.clone(),
                 ))
@@ -416,7 +416,7 @@ impl Render for BufferSearchBar {
                         let focus_handle = focus_handle.clone();
                         move |_window, cx| {
                             Tooltip::for_action_in(
-                                "Toggle Search Selection",
+                                "切換搜尋選取範圍",
                                 &ToggleSelection,
                                 &focus_handle,
                                 cx,
@@ -438,7 +438,7 @@ impl Render for BufferSearchBar {
                         self.active_match_index
                             .is_none()
                             .then_some(ActionButtonState::Disabled),
-                        "Select Previous Match",
+                        "選取上一個相符",
                         &SelectPreviousMatch,
                         query_focus.clone(),
                     ))
@@ -448,7 +448,7 @@ impl Render for BufferSearchBar {
                         self.active_match_index
                             .is_none()
                             .then_some(ActionButtonState::Disabled),
-                        "Select Next Match",
+                        "選取下一個相符",
                         &SelectNextMatch,
                         query_focus.clone(),
                     ))
@@ -469,7 +469,7 @@ impl Render for BufferSearchBar {
                         "buffer-search-nav-button",
                         IconName::SelectAll,
                         Default::default(),
-                        "Select All Matches",
+                        "選取所有相符",
                         &SelectAllMatches,
                         query_focus.clone(),
                     ))
@@ -481,7 +481,7 @@ impl Render for BufferSearchBar {
                     "buffer-search",
                     IconName::Close,
                     Default::default(),
-                    "Close Search Bar",
+                    "關閉搜尋列",
                     &Dismiss,
                     focus_handle.clone(),
                 ))
@@ -515,7 +515,7 @@ impl Render for BufferSearchBar {
                     "buffer-search-replace-button",
                     IconName::ReplaceNext,
                     Default::default(),
-                    "Replace Next Match",
+                    "取代下一個相符",
                     &ReplaceNext,
                     focus_handle.clone(),
                 ))
@@ -523,7 +523,7 @@ impl Render for BufferSearchBar {
                     "buffer-search-replace-button",
                     IconName::ReplaceAll,
                     Default::default(),
-                    "Replace All Matches",
+                    "取代所有相符",
                     &ReplaceAll,
                     focus_handle,
                 ));
@@ -568,7 +568,7 @@ impl Render for BufferSearchBar {
                                 "buffer-search",
                                 IconName::Close,
                                 Default::default(),
-                                "Close Search Bar",
+                                "關閉搜尋列",
                                 &Dismiss,
                                 focus_handle.clone(),
                             )),

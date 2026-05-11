@@ -203,10 +203,13 @@ pub struct TerminalSettingsContent {
 pub enum Shell {
     /// Use the system's default terminal configuration in /etc/passwd
     #[default]
+    #[strum(serialize = "系統")]
     System,
     /// Use a specific program with no arguments.
+    #[strum(serialize = "程式")]
     Program(String),
     /// Use a specific program with arguments.
+    #[strum(serialize = "含參數")]
     WithArguments {
         /// The program to run.
         program: String,
@@ -304,12 +307,16 @@ pub enum ShowScrollbar {
     /// Show the scrollbar if there's important information or
     /// follow the system's configured behavior.
     #[default]
+    #[strum(serialize = "自動")]
     Auto,
     /// Match the system's configured behavior.
+    #[strum(serialize = "系統")]
     System,
     /// Always show the scrollbar.
+    #[strum(serialize = "一律顯示")]
     Always,
     /// Never show the scrollbar.
+    #[strum(serialize = "永不顯示")]
     Never,
 }
 
@@ -357,11 +364,14 @@ pub enum CursorShapeContent {
 #[serde(rename_all = "snake_case")]
 pub enum TerminalBlink {
     /// Never blink the cursor, ignoring the terminal mode.
+    #[strum(serialize = "關閉")]
     Off,
     /// Default the cursor blink to off, but allow the terminal to
     /// set blinking.
+    #[strum(serialize = "由終端機控制")]
     TerminalControlled,
     /// Always blink the cursor, ignoring the terminal mode.
+    #[strum(serialize = "開啟")]
     On,
 }
 
@@ -380,7 +390,9 @@ pub enum TerminalBlink {
 )]
 #[serde(rename_all = "snake_case")]
 pub enum AlternateScroll {
+    #[strum(serialize = "開啟")]
     On,
+    #[strum(serialize = "關閉")]
     Off,
 }
 
@@ -416,8 +428,10 @@ pub struct TerminalToolbarContent {
 pub enum TerminalBell {
     /// Play an OS-specific alert sound.
     #[default]
+    #[strum(serialize = "系統")]
     System,
     /// Do not play any sound.
+    #[strum(serialize = "關閉")]
     Off,
 }
 
@@ -504,8 +518,11 @@ pub enum PathHyperlinkRegex {
 )]
 #[serde(rename_all = "snake_case")]
 pub enum TerminalDockPosition {
+    #[strum(serialize = "左側")]
     Left,
+    #[strum(serialize = "底部")]
     Bottom,
+    #[strum(serialize = "右側")]
     Right,
 }
 

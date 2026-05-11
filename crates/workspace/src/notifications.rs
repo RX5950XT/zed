@@ -364,23 +364,23 @@ impl Render for LanguageServerPrompt {
                                             "copy-description",
                                             request.message.clone(),
                                         )
-                                        .tooltip_label("Copy Description"),
+                                        .tooltip_label("複製說明"),
                                     )
                                     .child(
                                         IconButton::new(close_id, close_icon)
                                             .tooltip(move |_window, cx| {
                                                 if suppress {
                                                     Tooltip::with_meta(
-                                                        "Suppress",
+                                                        "隱藏",
                                                         Some(&SuppressNotification),
-                                                        "Click to close",
+                                                        "點擊以關閉",
                                                         cx,
                                                     )
                                                 } else {
                                                     Tooltip::with_meta(
-                                                        "Close",
+                                                        "關閉",
                                                         Some(&menu::Cancel),
-                                                        "Suppress with shift-click",
+                                                        "按住 Shift 點擊可隱藏",
                                                         cx,
                                                     )
                                                 }
@@ -531,7 +531,7 @@ impl Render for ErrorMessagePrompt {
                                     .gap_1()
                                     .child(
                                         CopyButton::new("copy-error-message", self.message.clone())
-                                            .tooltip_label("Copy Error Message"),
+                                            .tooltip_label("複製錯誤訊息"),
                                     )
                                     .child(
                                         ui::IconButton::new("close", ui::IconName::Close).on_click(

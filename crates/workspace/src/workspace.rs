@@ -10004,7 +10004,7 @@ pub fn open_paths(
                             let msg = format!("{display_path} is inside a WSL filesystem, some features may not work unless you open it with WSL remote");
                             cx.new(move |cx| {
                                 MessageNotification::new(msg, cx)
-                                    .primary_message("Open in WSL")
+                                    .primary_message("在 WSL 中開啟")
                                     .primary_icon(IconName::FolderOpen)
                                     .primary_on_click(move |window, cx| {
                                         window.dispatch_action(Box::new(remote::OpenWslPath {

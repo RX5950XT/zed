@@ -256,7 +256,7 @@ impl DiagnosticBlock {
             )
             .child(
                 CopyButton::new(copy_button_id, self.copy_message.clone())
-                    .tooltip_label("Copy Diagnostic"),
+                    .tooltip_label("複製診斷訊息"),
             )
             .into_any_element()
     }

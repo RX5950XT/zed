@@ -4934,9 +4934,9 @@ impl AgentPanel {
                 }
             }
             VisibleSurface::Configuration(_) => {
-                Label::new("Settings").truncate().into_any_element()
+                Label::new("設定").truncate().into_any_element()
             }
-            VisibleSurface::Uninitialized => Label::new("Agent").truncate().into_any_element(),
+            VisibleSurface::Uninitialized => Label::new("代理").truncate().into_any_element(),
         };
 
         let toolbar_bg = cx.theme().colors().tab_bar_background;
@@ -5060,7 +5060,7 @@ impl AgentPanel {
 
                             if let Some(conversation_view) = conversation_view.as_ref() {
                                 menu = menu
-                                    .entry("Regenerate Thread Title", None, {
+                                    .entry("重新產生對話標題", None, {
                                         let conversation_view = conversation_view.clone();
                                         move |_, cx| {
                                             Self::handle_regenerate_thread_title(
@@ -5170,15 +5170,15 @@ impl AgentPanel {
                         }
 
                         menu = menu
-                            .action("Settings", Box::new(OpenSettings))
+                            .action("設定", Box::new(OpenSettings))
                             .separator()
-                            .action("Toggle Threads Sidebar", Box::new(ToggleWorkspaceSidebar));
+                            .action("切換對話側邊欄", Box::new(ToggleWorkspaceSidebar));
 
                         if has_auth_methods || supports_logout {
                             menu = menu.separator()
                         }
                         if has_auth_methods {
-                            menu = menu.action("Reauthenticate", Box::new(ReauthenticateAgent))
+                            menu = menu.action("重新認證", Box::new(ReauthenticateAgent))
                         }
                         if supports_logout {
                             menu = menu.action("Log Out", Box::new(LogoutAgent))
@@ -5389,7 +5389,7 @@ impl AgentPanel {
                                 .collect::<Vec<_>>();
 
                             if !agent_items.is_empty() {
-                                menu = menu.separator().header("External Agents");
+                                menu = menu.separator().header("外部代理");
                             }
                             for item in &agent_items {
                                 let mut entry = ContextMenuEntry::new(item.display_name.clone());
