@@ -1,3 +1,4 @@
+inno/
 **/*.db
 **/*.proptest-regressions
 **/cargo-target
