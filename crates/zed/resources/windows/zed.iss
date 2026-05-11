@@ -44,6 +44,7 @@ ArchitecturesInstallIn64BitMode=x64compatible
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl,{#ResourcesDir}\messages\en.isl"; LicenseFile: "script\terms\terms.rtf"
 Name: "simplifiedChinese"; MessagesFile: "{#ResourcesDir}\messages\Default.zh-cn.isl,{#ResourcesDir}\messages\zh-cn.isl"; LicenseFile: "script\terms\terms.rtf"
+Name: "traditionalChinese"; MessagesFile: "{#ResourcesDir}\messages\Default.zh-tw.isl,{#ResourcesDir}\messages\zh-tw.isl"; LicenseFile: "script\terms\terms.rtf"
 
 [UninstallDelete]
 ; Delete logs
