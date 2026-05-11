@@ -168,23 +168,23 @@ impl Render for SecurityModal {
                         v_flex()
                             .child(
                                 Label::new(
-                                    "Untrusted projects are opened in Restricted Mode to protect your system.",
+                                    "未受信任的專案會以受限模式開啟，以保護你的系統。",
                                 )
                                 .color(Color::Muted),
                             )
                             .child(
                                 Label::new(
-                                    "Review .zed/settings.json for any extensions or commands configured by this project.",
+                                    "請檢查 .zed/settings.json，查看此專案是否設定了擴充功能或指令。",
                                 )
                                 .color(Color::Muted),
                             ),
                     )
                     .child(
                         v_flex()
-                            .child(Label::new("Restricted Mode prevents:").color(Color::Muted))
-                            .child(ListBulletItem::new("Project settings from being applied"))
-                            .child(ListBulletItem::new("Language servers from running"))
-                            .child(ListBulletItem::new("MCP Server integrations from installing")),
+                            .child(Label::new("受限模式會阻止：").color(Color::Muted))
+                            .child(ListBulletItem::new("套用專案設定"))
+                            .child(ListBulletItem::new("啟動語言伺服器"))
+                            .child(ListBulletItem::new("安裝 MCP 伺服器整合")),
                     )
                     .map(|this| match trust_label {
                         Some(trust_label) => this.child(
@@ -208,7 +208,7 @@ impl Render for SecurityModal {
                     .gap_1()
                     .justify_end()
                     .child(
-                        Button::new("rm", "Stay in Restricted Mode")
+                        Button::new("rm", "維持受限模式")
                             .key_binding(
                                 KeyBinding::for_action(
                                     &ToggleWorktreeSecurity,
@@ -223,7 +223,7 @@ impl Render for SecurityModal {
                             })),
                     )
                     .child(
-                        Button::new("tc", "Trust and Continue")
+                        Button::new("tc", "信任並繼續")
                             .style(ButtonStyle::Filled)
                             .layer(ui::ElevationIndex::ModalSurface)
                             .key_binding(

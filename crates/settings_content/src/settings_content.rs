@@ -618,8 +618,11 @@ pub enum SteppingGranularity {
 )]
 #[serde(rename_all = "snake_case")]
 pub enum DockPosition {
+    #[strum(serialize = "左側")]
     Left,
+    #[strum(serialize = "底部")]
     Bottom,
+    #[strum(serialize = "右側")]
     Right,
 }
 
@@ -903,10 +906,13 @@ pub enum ModeContent {
 #[serde(rename_all = "snake_case")]
 pub enum UseSystemClipboard {
     /// Don't use system clipboard.
+    #[strum(serialize = "永不")]
     Never,
     /// Use system clipboard.
+    #[strum(serialize = "一律使用")]
     Always,
     /// Use system clipboard for yank operations.
+    #[strum(serialize = "僅 Yank 時")]
     OnYank,
 }
 
@@ -1056,7 +1062,9 @@ pub struct OutlinePanelSettingsContent {
 )]
 #[serde(rename_all = "snake_case")]
 pub enum DockSide {
+    #[strum(serialize = "左側")]
     Left,
+    #[strum(serialize = "右側")]
     Right,
 }
 

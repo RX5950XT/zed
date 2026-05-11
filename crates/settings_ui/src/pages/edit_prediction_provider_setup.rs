@@ -72,9 +72,9 @@ pub(crate) fn render_edit_prediction_setup_page(
         Some(
             render_api_key_provider(
                 IconName::AiOpenAiCompat,
-                "OpenAI Compatible API",
+                "OpenAI 相容 API",
                 ApiKeyDocs::Custom {
-                    message: "The API key sent as Authorization: Bearer {key}.".into(),
+                    message: "API key 會以 Authorization: Bearer {key} 傳送。".into(),
                 },
                 open_ai_compatible_api_token(cx),
                 |cx| open_ai_compatible_api_url(cx),
@@ -115,7 +115,7 @@ fn render_provider_dropdown(window: &mut Window, cx: &mut App) -> AnyElement {
     let current_provider = AllLanguageSettings::get_global(cx)
         .edit_predictions
         .provider;
-    let current_provider_name = current_provider.display_name().unwrap_or("No provider set");
+    let current_provider_name = current_provider.display_name().unwrap_or("尚未設定提供者");
 
     let menu = ContextMenu::build(window, cx, move |mut menu, _, cx| {
         let available_providers = get_available_providers(cx);
@@ -141,7 +141,7 @@ fn render_provider_dropdown(window: &mut Window, cx: &mut App) -> AnyElement {
         .id("provider-selector")
         .min_w_0()
         .gap_1p5()
-        .child(SettingsSectionHeader::new("Active Provider").no_padding(true))
+        .child(SettingsSectionHeader::new("作用中提供者").no_padding(true))
         .child(
             h_flex()
                 .pt_2p5()
@@ -153,9 +153,9 @@ fn render_provider_dropdown(window: &mut Window, cx: &mut App) -> AnyElement {
                         .w_full()
                         .min_w_0()
                         .max_w_1_2()
-                        .child(Label::new("Provider"))
+                        .child(Label::new("提供者"))
                         .child(
-                            Label::new("Select which provider to use for edit predictions.")
+                            Label::new("選擇編輯預測要使用的提供者。")
                                 .size(LabelSize::Small)
                                 .color(Color::Muted),
                         ),
@@ -246,7 +246,7 @@ fn render_api_key_provider(
             .flex_wrap()
             .gap_0p5()
             .child(
-                Label::new("Visit the")
+                Label::new("前往")
                     .size(LabelSize::Small)
                     .color(Color::Muted),
             )
@@ -257,27 +257,27 @@ fn render_api_key_provider(
                     .label_color(Color::Muted),
             )
             .child(
-                Label::new("to generate an API key.")
+                Label::new("產生 API key。")
                     .size(LabelSize::Small)
                     .color(Color::Muted),
             ),
     };
     let configured_card_label = if is_from_env_var {
-        "API Key Set in Environment Variable"
+        "API Key 已在環境變數中設定"
     } else {
-        "API Key Configured"
+        "API Key 已設定"
     };
 
     let container = if has_key {
         base_container.child(header).child(
             ConfiguredApiCard::new(configured_card_label)
-                .button_label("Reset Key")
+                .button_label("重設 Key")
                 .button_tab_index(0)
                 .disabled(is_from_env_var)
                 .when_some(env_var_name, |this, env_var_name| {
                     this.when(is_from_env_var, |this| {
                         this.tooltip_label(format!(
-                            "To reset your API key, unset the {} environment variable.",
+                            "若要重設 API key，請取消設定 {} 環境變數。",
                             env_var_name
                         ))
                     })
@@ -303,7 +303,7 @@ fn render_api_key_provider(
                         .when_some(env_var_name, |this, env_var_name| {
                             this.child({
                                 let label = format!(
-                                    "Or set the {} env var and restart Zed.",
+                                    "或設定 {} 環境變數並重新啟動 Zed。",
                                     env_var_name.as_ref()
                                 );
                                 Label::new(label).size(LabelSize::Small).color(Color::Muted)
@@ -359,8 +359,8 @@ fn render_ollama_provider(
 fn ollama_settings() -> Box<[SettingsPageItem]> {
     Box::new([
         SettingsPageItem::SettingItem(SettingItem {
-            title: "API URL",
-            description: "The base URL of your Ollama server.",
+            title: "API 網址",
+            description: "Ollama 伺服器的基礎網址。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -392,8 +392,8 @@ fn ollama_settings() -> Box<[SettingsPageItem]> {
             files: USER,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Model",
-            description: "The Ollama model to use for edit predictions.",
+            title: "模型",
+            description: "編輯預測使用的 Ollama 模型。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -425,8 +425,8 @@ fn ollama_settings() -> Box<[SettingsPageItem]> {
             files: USER,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Prompt Format",
-            description: "The prompt format to use when requesting predictions. Set to Infer to have the format inferred based on the model name.",
+            title: "Prompt 格式",
+            description: "要求預測時使用的 Prompt 格式。設為 Infer 時會依模型名稱推斷格式。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -455,8 +455,8 @@ fn ollama_settings() -> Box<[SettingsPageItem]> {
             metadata: None,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Max Output Tokens",
-            description: "The maximum number of tokens to generate.",
+            title: "最大輸出 Token 數",
+            description: "要產生的最大 Token 數。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -490,8 +490,8 @@ fn ollama_settings() -> Box<[SettingsPageItem]> {
 fn open_ai_compatible_settings() -> Box<[SettingsPageItem]> {
     Box::new([
         SettingsPageItem::SettingItem(SettingItem {
-            title: "API URL",
-            description: "The URL of your OpenAI-compatible server's completions API.",
+            title: "API 網址",
+            description: "OpenAI 相容伺服器 completions API 的網址。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -523,8 +523,8 @@ fn open_ai_compatible_settings() -> Box<[SettingsPageItem]> {
             files: USER,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Model",
-            description: "The model string to pass to the OpenAI-compatible server.",
+            title: "模型",
+            description: "傳給 OpenAI 相容伺服器的模型字串。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -556,8 +556,8 @@ fn open_ai_compatible_settings() -> Box<[SettingsPageItem]> {
             files: USER,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Prompt Format",
-            description: "The prompt format to use when requesting predictions. Set to Infer to have the format inferred based on the model name.",
+            title: "Prompt 格式",
+            description: "要求預測時使用的 Prompt 格式。設為 Infer 時會依模型名稱推斷格式。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -586,8 +586,8 @@ fn open_ai_compatible_settings() -> Box<[SettingsPageItem]> {
             metadata: None,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Max Output Tokens",
-            description: "The maximum number of tokens to generate.",
+            title: "最大輸出 Token 數",
+            description: "要產生的最大 Token 數。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -621,8 +621,8 @@ fn open_ai_compatible_settings() -> Box<[SettingsPageItem]> {
 fn codestral_settings() -> Box<[SettingsPageItem]> {
     Box::new([
         SettingsPageItem::SettingItem(SettingItem {
-            title: "API URL",
-            description: "The API URL to use for Codestral.",
+            title: "API 網址",
+            description: "Codestral 使用的 API 網址。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -654,8 +654,8 @@ fn codestral_settings() -> Box<[SettingsPageItem]> {
             files: USER,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Max Tokens",
-            description: "The maximum number of tokens to generate.",
+            title: "最大 Token 數",
+            description: "要產生的最大 Token 數。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings
@@ -684,8 +684,8 @@ fn codestral_settings() -> Box<[SettingsPageItem]> {
             files: USER,
         }),
         SettingsPageItem::SettingItem(SettingItem {
-            title: "Model",
-            description: "The Codestral model id to use.",
+            title: "模型",
+            description: "要使用的 Codestral 模型 ID。",
             field: Box::new(SettingField {
                 pick: |settings| {
                     settings

@@ -2818,7 +2818,7 @@ fn loading_contents_spinner(size: IconSize) -> AnyElement {
 
 fn placeholder_text(agent_name: &str, has_commands: bool) -> String {
     if agent_name == agent::ZED_AGENT_ID.as_ref() {
-        format!("Message the {} — @ to include context", agent_name)
+        format!("向 {} 傳送訊息 — 使用 @ 加入上下文", agent_name)
     } else if has_commands {
         format!(
             "Message {} — @ to include context, / for commands",

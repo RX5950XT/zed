@@ -51,9 +51,9 @@ impl Render for ToolbarControls {
         let is_agent_enabled = AgentSettings::get_global(cx).enabled(cx);
 
         let (warning_tooltip, warning_color) = if include_warnings {
-            ("Exclude Warnings", Color::Warning)
+            ("排除警告", Color::Warning)
         } else {
-            ("Include Warnings", Color::Disabled)
+            ("包含警告", Color::Disabled)
         };
 
         h_flex()
@@ -89,7 +89,7 @@ impl Render for ToolbarControls {
                             .icon_color(Color::Error)
                             .icon_size(IconSize::Small)
                             .tooltip(Tooltip::for_action_title(
-                                "Stop Diagnostics Update",
+                                "停止診斷更新",
                                 &ToggleDiagnosticsRefresh,
                             ))
                             .on_click(cx.listener(move |toolbar_controls, _, _, cx| {
@@ -104,7 +104,7 @@ impl Render for ToolbarControls {
                         IconButton::new("refresh-diagnostics", IconName::ArrowCircle)
                             .icon_size(IconSize::Small)
                             .tooltip(Tooltip::for_action_title(
-                                "Refresh Diagnostics",
+                                "重新整理診斷",
                                 &ToggleDiagnosticsRefresh,
                             ))
                             .on_click(cx.listener({

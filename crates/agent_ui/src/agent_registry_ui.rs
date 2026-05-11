@@ -95,7 +95,7 @@ impl AgentRegistryPage {
             let registry_store = AgentRegistryStore::global(cx);
             let query_editor = cx.new(|cx| {
                 let mut input = Editor::single_line(window, cx);
-                input.set_placeholder_text("Search agents...", window, cx);
+                input.set_placeholder_text("搜尋代理...", window, cx);
                 input
             });
             cx.subscribe(&query_editor, Self::on_query_change).detach();
@@ -482,7 +482,7 @@ impl AgentRegistryPage {
             RegistryInstallStatus::NotInstalled => {
                 let fs = <dyn Fs>::global(cx);
                 let agent_id = agent.id().to_string();
-                Button::new(button_id, "Install")
+                Button::new(button_id, "安裝")
                     .style(ButtonStyle::Tinted(ui::TintColor::Accent))
                     .start_icon(
                         Icon::new(IconName::Download)
@@ -528,10 +528,10 @@ impl AgentRegistryPage {
                         });
                     })
             }
-            RegistryInstallStatus::InstalledCustom => Button::new(button_id, "Installed")
+            RegistryInstallStatus::InstalledCustom => Button::new(button_id, "已安裝")
                 .style(ButtonStyle::OutlinedGhost)
                 .disabled(true),
-            RegistryInstallStatus::InstalledExtension => Button::new(button_id, "Installed")
+            RegistryInstallStatus::InstalledExtension => Button::new(button_id, "已安裝")
                 .style(ButtonStyle::OutlinedGhost)
                 .disabled(true),
         }
@@ -554,9 +554,9 @@ impl Render for AgentRegistryPage {
                             .w_full()
                             .gap_1p5()
                             .justify_between()
-                            .child(Headline::new("ACP Registry").size(HeadlineSize::Large))
+                            .child(Headline::new("ACP 登錄檔").size(HeadlineSize::Large))
                             .child(
-                                Button::new("learn-more", "Learn More")
+                                Button::new("learn-more", "了解更多")
                                     .style(ButtonStyle::Outlined)
                                     .size(ButtonSize::Medium)
                                     .end_icon(
@@ -581,7 +581,7 @@ impl Render for AgentRegistryPage {
                                         "registry-filter-buttons",
                                         [
                                             ToggleButtonSimple::new(
-                                                "All",
+                                                "全部",
                                                 cx.listener(|this, _event, _, cx| {
                                                     this.filter = RegistryFilter::All;
                                                     this.filter_registry_agents(cx);
@@ -589,7 +589,7 @@ impl Render for AgentRegistryPage {
                                                 }),
                                             ),
                                             ToggleButtonSimple::new(
-                                                "Installed",
+                                                "已安裝",
                                                 cx.listener(|this, _event, _, cx| {
                                                     this.filter = RegistryFilter::Installed;
                                                     this.filter_registry_agents(cx);
@@ -597,7 +597,7 @@ impl Render for AgentRegistryPage {
                                                 }),
                                             ),
                                             ToggleButtonSimple::new(
-                                                "Not Installed",
+                                                "未安裝",
                                                 cx.listener(|this, _event, _, cx| {
                                                     this.filter = RegistryFilter::NotInstalled;
                                                     this.filter_registry_agents(cx);
@@ -651,7 +651,7 @@ impl Item for AgentRegistryPage {
     type Event = ItemEvent;
 
     fn tab_content_text(&self, _detail: usize, _cx: &App) -> SharedString {
-        "ACP Registry".into()
+        "ACP 登錄檔".into()
     }
 
     fn telemetry_event_text(&self) -> Option<&'static str> {

@@ -343,13 +343,16 @@ pub enum IconThemeSelection {
 #[serde(rename_all = "snake_case")]
 pub enum ThemeAppearanceMode {
     /// Use the specified `light` theme.
+    #[strum(serialize = "淺色")]
     Light,
 
     /// Use the specified `dark` theme.
+    #[strum(serialize = "深色")]
     Dark,
 
     /// Use the theme based on the system's appearance.
     #[default]
+    #[strum(serialize = "系統")]
     System,
 }
 

@@ -1307,9 +1307,9 @@ impl Render for FailedToSpawnTerminal {
             .menu(move |window, cx| {
                 Some(ContextMenu::build(window, cx, |context_menu, _, _| {
                     context_menu
-                        .action("Open Settings", zed_actions::OpenSettings.boxed_clone())
+                        .action("開啟設定", zed_actions::OpenSettings.boxed_clone())
                         .action(
-                            "Edit settings.json",
+                            "編輯 settings.json",
                             zed_actions::OpenSettingsFile.boxed_clone(),
                         )
                 }))
@@ -1333,7 +1333,7 @@ impl Render for FailedToSpawnTerminal {
                     .items_center()
                     .justify_center()
                     .text_center()
-                    .child(Label::new("Failed to spawn terminal"))
+                    .child(Label::new("無法啟動終端機"))
                     .child(
                         Label::new(self.error.to_string())
                             .size(LabelSize::Small)
@@ -1342,7 +1342,7 @@ impl Render for FailedToSpawnTerminal {
                     )
                     .child(SplitButton::new(
                         ButtonLike::new("open-settings-ui")
-                            .child(Label::new("Edit Settings").size(LabelSize::Small))
+                            .child(Label::new("編輯設定").size(LabelSize::Small))
                             .on_click(|_, window, cx| {
                                 window.dispatch_action(zed_actions::OpenSettings.boxed_clone(), cx);
                             }),
@@ -1358,7 +1358,7 @@ impl workspace::Item for FailedToSpawnTerminal {
     type Event = ();
 
     fn tab_content_text(&self, _detail: usize, _cx: &App) -> SharedString {
-        SharedString::new_static("Failed to spawn terminal")
+        SharedString::new_static("無法啟動終端機")
     }
 }
 

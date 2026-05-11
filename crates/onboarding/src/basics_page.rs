@@ -57,7 +57,7 @@ fn render_theme_section(tab_index: &mut isize, cx: &mut App) -> impl IntoElement
     return v_flex()
         .gap_2()
         .child(
-            h_flex().justify_between().child(Label::new("Theme")).child(
+            h_flex().justify_between().child(Label::new("主題")).child(
                 ToggleButtonGroup::single_row(
                     "theme-selector-onboarding-dark-light",
                     [
@@ -67,9 +67,9 @@ fn render_theme_section(tab_index: &mut isize, cx: &mut App) -> impl IntoElement
                     ]
                     .map(|mode| {
                         const MODE_NAMES: [SharedString; 3] = [
-                            SharedString::new_static("Light"),
-                            SharedString::new_static("Dark"),
-                            SharedString::new_static("System"),
+                            SharedString::new_static("淺色"),
+                            SharedString::new_static("深色"),
+                            SharedString::new_static("系統"),
                         ];
                         ToggleButtonSimple::new(
                             MODE_NAMES[mode as usize].clone(),
@@ -250,7 +250,7 @@ fn render_telemetry_section(tab_index: &mut isize, cx: &App) -> impl IntoElement
             SwitchField::new(
                 "onboarding-telemetry-metrics",
                 None::<&str>,
-                Some("Help improve Zed by sending anonymous usage data".into()),
+                Some("傳送匿名使用資料以協助改進 Zed".into()),
                 if TelemetrySettings::get_global(cx).metrics {
                     ui::ToggleState::Selected
                 } else {
@@ -290,7 +290,7 @@ fn render_telemetry_section(tab_index: &mut isize, cx: &App) -> impl IntoElement
                 "onboarding-telemetry-crash-reports",
                 None::<&str>,
                 Some(
-                    "Help fix Zed by sending crash reports so we can fix critical issues fast"
+                    "傳送當機回報以協助快速修復 Zed 的重大問題"
                         .into(),
                 ),
                 if TelemetrySettings::get_global(cx).diagnostics {
@@ -340,7 +340,7 @@ fn render_base_keymap_section(tab_index: &mut isize, cx: &mut App) -> impl IntoE
         BaseKeymap::TextMate | BaseKeymap::None => None,
     };
 
-    return v_flex().gap_2().child(Label::new("Base Keymap")).child(
+    return v_flex().gap_2().child(Label::new("基礎按鍵對應")).child(
         ToggleButtonGroup::two_rows(
             "base_keymap_selection",
             [
@@ -394,8 +394,8 @@ fn render_vim_mode_switch(tab_index: &mut isize, cx: &mut App) -> impl IntoEleme
     };
     SwitchField::new(
         "onboarding-vim-mode",
-        Some("Vim Mode"),
-        Some("Coming from Neovim? Use our first-class implementation of Vim Mode".into()),
+        Some("Vim 模式"),
+        Some("如果你來自 Neovim，可使用我們完整支援的 Vim 模式".into()),
         toggle_state,
         {
             let fs = <dyn Fs>::global(cx);
@@ -431,12 +431,13 @@ fn render_worktree_auto_trust_switch(tab_index: &mut isize, cx: &mut App) -> imp
         ui::ToggleState::Unselected
     };
 
-    let tooltip_description = "Zed can only allow services like language servers, project settings, and MCP servers to run after you mark a new project as trusted.";
+    let tooltip_description =
+        "只有在你將新專案標記為受信任後，Zed 才會允許 language servers、專案設定與 MCP servers 等服務執行。";
 
     SwitchField::new(
         "onboarding-auto-trust-worktrees",
-        Some("Trust All Projects By Default"),
-        Some("Automatically mark all new projects as trusted to unlock all Zed's features".into()),
+        Some("預設信任所有專案"),
+        Some("自動將所有新專案標記為受信任，以解鎖 Zed 的所有功能".into()),
         toggle_state,
         {
             let fs = <dyn Fs>::global(cx);
@@ -519,9 +520,9 @@ fn render_import_settings_section(tab_index: &mut isize, cx: &mut App) -> impl I
             v_flex()
                 .gap_0p5()
                 .max_w_5_6()
-                .child(Label::new("Import Settings"))
+                .child(Label::new("匯入設定"))
                 .child(
-                    Label::new("Automatically pull your settings from other editors")
+                    Label::new("自動從其他編輯器帶入你的設定")
                         .color(Color::Muted),
                 ),
         )
@@ -554,7 +555,7 @@ fn render_registry_agent_button(
             .color(Color::Success)
             .into_any_element()
     } else {
-        Label::new("Install")
+        Label::new("安裝")
             .size(LabelSize::XSmall)
             .color(Color::Muted)
             .into_any_element()
@@ -602,12 +603,12 @@ fn render_zed_agent_button(user_store: &Entity<UserStore>, cx: &mut App) -> impl
     let is_signed_in = !is_signed_out;
 
     let state_element = if is_signed_out {
-        Label::new("Sign In")
+        Label::new("登入")
             .size(LabelSize::XSmall)
             .color(Color::Muted)
             .into_any_element()
     } else if is_signing_in {
-        Label::new("Signing In…")
+        Label::new("登入中…")
             .size(LabelSize::XSmall)
             .color(Color::Muted)
             .with_animation(
@@ -619,7 +620,7 @@ fn render_zed_agent_button(user_store: &Entity<UserStore>, cx: &mut App) -> impl
             )
             .into_any_element()
     } else if is_signed_in && is_free {
-        Label::new("Start Free Trial")
+        Label::new("開始免費試用")
             .size(LabelSize::XSmall)
             .color(Color::Muted)
             .into_any_element()
@@ -690,9 +691,9 @@ fn render_ai_section(user_store: &Entity<UserStore>, cx: &mut App) -> impl IntoE
 
     v_flex()
         .gap_0p5()
-        .child(Label::new("Agent Setup"))
+        .child(Label::new("Agent 設定"))
         .child(
-            Label::new("Install your favorite agents and start your first thread.")
+            Label::new("安裝你常用的 agents，開始第一個 thread。")
                 .color(Color::Muted),
         )
         .child(grid)

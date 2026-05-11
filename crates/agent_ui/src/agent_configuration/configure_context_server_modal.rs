@@ -877,9 +877,9 @@ impl ConfigureContextServerModal {
                         Button::new(
                             "add-server",
                             if self.source.is_new() {
-                                "Add Server"
+                                "新增伺服器"
                             } else {
-                                "Configure Server"
+                                "設定伺服器"
                             },
                         )
                         .disabled(is_busy)

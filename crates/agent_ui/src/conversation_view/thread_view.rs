@@ -4097,9 +4097,9 @@ impl ThreadView {
 
         ContextMenu::build(window, cx, move |menu, _window, _cx| {
             menu.key_context("AddContextMenu")
-                .header("Context")
+                .header("上下文")
                 .item(
-                    ContextMenuEntry::new("Files & Directories")
+                    ContextMenuEntry::new("檔案與目錄")
                         .icon(IconName::File)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4114,7 +4114,7 @@ impl ThreadView {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Symbols")
+                    ContextMenuEntry::new("符號")
                         .icon(IconName::Code)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4129,7 +4129,7 @@ impl ThreadView {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Threads")
+                    ContextMenuEntry::new("對話")
                         .icon(IconName::Thread)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4144,7 +4144,7 @@ impl ThreadView {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Rules")
+                    ContextMenuEntry::new("規則")
                         .icon(IconName::Reader)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4159,7 +4159,7 @@ impl ThreadView {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Image")
+                    ContextMenuEntry::new("圖片")
                         .icon(IconName::Image)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4175,7 +4175,7 @@ impl ThreadView {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Selection")
+                    ContextMenuEntry::new("選取範圍")
                         .icon(IconName::CursorIBeam)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4190,7 +4190,7 @@ impl ThreadView {
                         }),
                 )
                 .item(
-                    ContextMenuEntry::new("Branch Diff")
+                    ContextMenuEntry::new("分支差異")
                         .icon(IconName::GitBranch)
                         .icon_color(Color::Muted)
                         .icon_size(IconSize::XSmall)
@@ -4235,7 +4235,7 @@ impl ThreadView {
                     Tooltip::with_meta(
                         tooltip_label.clone(),
                         Some(&Follow),
-                        "Track the agent's location as it reads and edits files.",
+                        "在代理讀取和編輯檔案時追蹤其位置。", 
                         cx,
                     )
                 }
@@ -8332,23 +8332,23 @@ impl ThreadView {
                 cx,
             ),
             ThreadError::MaxOutputTokens => self.render_error_callout(
-                "Output Limit Reached",
-                "The model stopped because it reached its maximum output length. \
-                You can ask it to continue where it left off."
+                "輸出上限已達",
+                "模型因達到最大輸出長度而停止。\
+                您可以要求它從中斷處繼續。"
                     .into(),
                 false,
                 false,
                 cx,
             ),
             ThreadError::NoModelSelected => self.render_error_callout(
-                "No Model Selected",
-                "Select a model from the model picker below to get started.".into(),
+                "未選擇模型",
+                "請從下方的模型選擇器中選取一個模型以開始。".into(),
                 false,
                 false,
                 cx,
             ),
             ThreadError::ApiError { provider } => self.render_error_callout(
-                "API Error",
+                "API 錯誤",
                 format!(
                     "{provider}'s API returned an unexpected error. \
                     If the problem persists, try switching models or restarting Zed."

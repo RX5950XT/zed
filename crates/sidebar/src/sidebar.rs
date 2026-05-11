@@ -508,7 +508,7 @@ impl Sidebar {
 
         let filter_editor = cx.new(|cx| {
             let mut editor = Editor::single_line(window, cx);
-            editor.set_placeholder_text("Search…", window, cx);
+            editor.set_placeholder_text("搜尋…", window, cx);
             editor
         });
 
@@ -1536,7 +1536,7 @@ impl Sidebar {
                         .size(IconSize::XSmall)
                         .color(Color::Muted),
                 )
-                .tooltip(Tooltip::text("Remote Project"))
+                .tooltip(Tooltip::text("遠端專案"))
                 .into_any_element(),
         )
     }
@@ -1757,7 +1757,7 @@ impl Sidebar {
                             Color::Custom(cx.theme().colors().icon_placeholder.opacity(0.1)),
                         ))
                         .child(
-                            Label::new("No threads yet")
+                            Label::new("尚無對話串")
                                 .size(LabelSize::Small)
                                 .color(Color::Placeholder),
                         ),
@@ -1849,7 +1849,7 @@ impl Sidebar {
 
                         let menu = menu.when(show_multi_project_entries, |this| {
                             this.entry(
-                                "Open Project in New Window",
+                                "在新視窗開啟專案",
                                 Some(Box::new(workspace::MoveProjectToNewWindow)),
                                 {
                                     let project_group_key = project_group_key.clone();
@@ -1935,7 +1935,7 @@ impl Sidebar {
                         let menu = if open_workspaces.is_empty() {
                             menu
                         } else {
-                            let mut menu = menu.separator().header("Open Worktrees");
+                            let mut menu = menu.separator().header("已開啟的工作樹");
 
                             for (
                                 workspace_index,
@@ -2001,7 +2001,7 @@ impl Sidebar {
                                                     )
                                                     .icon_size(IconSize::Small)
                                                     .visible_on_hover(&row_group_name)
-                                                    .tooltip(Tooltip::text("Close Workspace"))
+                                                    .tooltip(Tooltip::text("關閉工作區"))
                                                     .on_click(move |_, window, cx| {
                                                         cx.stop_propagation();
                                                         window.prevent_default();
@@ -4350,9 +4350,9 @@ impl Sidebar {
     fn render_no_results(&self, cx: &mut Context<Self>) -> impl IntoElement {
         let has_query = self.has_filter_query(cx);
         let message = if has_query {
-            "No threads match your search."
+            "沒有符合搜尋的對話串。"
         } else {
-            "No threads yet"
+            "尚無對話串"
         };
 
         v_flex()
@@ -4378,7 +4378,7 @@ impl Sidebar {
             .gap_1()
             .track_focus(&self.focus_handle(cx))
             .child(
-                Button::new("open_project", "Open Project")
+                Button::new("open_project", "開啟專案")
                     .full_width()
                     .key_binding(KeyBinding::for_action(&workspace::Open::default(), cx))
                     .on_click(|_, window, cx| {
@@ -4401,11 +4401,11 @@ impl Sidebar {
                     .w_1_2()
                     .gap_2()
                     .child(Divider::horizontal().color(ui::DividerColor::Border))
-                    .child(Label::new("or").size(LabelSize::XSmall).color(Color::Muted))
+                    .child(Label::new("或").size(LabelSize::XSmall).color(Color::Muted))
                     .child(Divider::horizontal().color(ui::DividerColor::Border)),
             )
             .child(
-                Button::new("clone_repo", "Clone Repository")
+                Button::new("clone_repo", "複製存放庫")
                     .full_width()
                     .on_click(|_, window, cx| {
                         window.dispatch_action(git::Clone.boxed_clone(), cx);
@@ -4473,7 +4473,7 @@ impl Sidebar {
                                 this.child(
                                     IconButton::new("clear_filter", IconName::Close)
                                         .icon_size(IconSize::Small)
-                                        .tooltip(Tooltip::text("Clear Search"))
+                                        .tooltip(Tooltip::text("清除搜尋"))
                                         .on_click(cx.listener(|this, _, window, cx| {
                                             this.reset_filter_editor_text(window, cx);
                                             this.update_entries(cx);
@@ -4532,7 +4532,7 @@ impl Sidebar {
                                 h_flex()
                                     .gap_2()
                                     .justify_between()
-                                    .child(Label::new("Toggle Sidebar"))
+                                    .child(Label::new("切換側邊欄"))
                                     .child(KeyBinding::for_action(&ToggleWorkspaceSidebar, cx)),
                             )
                             .child(
@@ -4542,7 +4542,7 @@ impl Sidebar {
                                     .border_t_1()
                                     .border_color(cx.theme().colors().border_variant)
                                     .justify_between()
-                                    .child(Label::new("Focus Sidebar"))
+                                    .child(Label::new("聚焦側邊欄"))
                                     .child(KeyBinding::for_action(&FocusWorkspaceSidebar, cx)),
                             )
                             .into_any_element()

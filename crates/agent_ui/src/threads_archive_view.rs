@@ -1478,9 +1478,9 @@ impl PickerDelegate for ProjectPickerDelegate {
 
     fn no_matches_text(&self, _window: &mut Window, _cx: &mut App) -> Option<SharedString> {
         let text = if self.workspaces.is_empty() {
-            "No recent projects found"
+            "找不到最近的專案"
         } else {
-            "No matches"
+            "無符合項目"
         };
         Some(text.into())
     }

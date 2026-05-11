@@ -500,22 +500,22 @@ impl TerminalView {
             .is_some_and(|terminal_panel| terminal_panel.read(cx).assistant_enabled());
         let context_menu = ContextMenu::build(window, cx, |menu, _, _| {
             menu.context(self.focus_handle.clone())
-                .action("New Terminal", Box::new(NewTerminal::default()))
+                .action("新增終端機", Box::new(NewTerminal::default()))
                 .action(
-                    "New Center Terminal",
+                    "新增中央終端機",
                     Box::new(NewCenterTerminal::default()),
                 )
                 .separator()
-                .action("Copy", Box::new(Copy))
-                .action("Paste", Box::new(Paste))
-                .action("Paste Text", Box::new(PasteText))
-                .action("Select All", Box::new(SelectAll))
-                .action("Clear", Box::new(Clear))
+                .action("複製", Box::new(Copy))
+                .action("貼上", Box::new(Paste))
+                .action("貼上文字", Box::new(PasteText))
+                .action("全選", Box::new(SelectAll))
+                .action("清除", Box::new(Clear))
                 .when(assistant_enabled, |menu| {
                     menu.separator()
-                        .action("Inline Assist", Box::new(InlineAssist::default()))
+                        .action("行內輔助", Box::new(InlineAssist::default()))
                         .when(has_selection, |menu| {
-                            menu.action("Add to Agent Thread", Box::new(AddSelectionToThread))
+                            menu.action("加入 Agent 討論串", Box::new(AddSelectionToThread))
                         })
                 })
                 .separator()

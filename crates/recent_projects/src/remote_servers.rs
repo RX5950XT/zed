@@ -326,7 +326,7 @@ impl PickerDelegate for DevContainerPickerDelegate {
                 .border_t_1()
                 .border_color(cx.theme().colors().border_variant)
                 .child(
-                    Button::new("run-action", "Start Dev Container")
+                    Button::new("run-action", "啟動 Dev Container")
                         .key_binding(
                             KeyBinding::for_action(&menu::Confirm, cx)
                                 .map(|kb| kb.size(rems_from_px(12.))),
@@ -336,7 +336,7 @@ impl PickerDelegate for DevContainerPickerDelegate {
                         }),
                 )
                 .child(
-                    Button::new("run-action-secondary", "Open devcontainer.json")
+                    Button::new("run-action-secondary", "開啟 devcontainer.json")
                         .key_binding(
                             KeyBinding::for_action(&menu::SecondaryConfirm, cx)
                                 .map(|kb| kb.size(rems_from_px(12.))),
@@ -362,7 +362,7 @@ impl EditNicknameState {
             .and_then(|state| state.nickname)
             .filter(|text| !text.is_empty());
         this.editor.update(cx, |this, cx| {
-            this.set_placeholder_text("Add a nickname for this server", window, cx);
+            this.set_placeholder_text("替這台伺服器加上暱稱", window, cx);
             if let Some(starting_text) = starting_text {
                 this.set_text(starting_text, window, cx);
             }
@@ -1428,7 +1428,7 @@ impl RemoteServerProjects {
                                         .inset(true)
                                         .spacing(ui::ListItemSpacing::Sparse)
                                         .start_slot(Icon::new(IconName::Plus).color(Color::Muted))
-                                        .child(Label::new("Open Folder"))
+                                        .child(Label::new("開啟資料夾"))
                                         .on_click(cx.listener({
                                             let connection = connection.clone();
                                             move |this, _, window, cx| {
@@ -1467,7 +1467,7 @@ impl RemoteServerProjects {
                                         .start_slot(
                                             Icon::new(IconName::Settings).color(Color::Muted),
                                         )
-                                        .child(Label::new("View Server Options"))
+                                        .child(Label::new("檢視伺服器選項"))
                                         .on_click(cx.listener({
                                             let ssh_connection = connection.clone();
                                             move |this, _, window, cx| {
@@ -1505,7 +1505,7 @@ impl RemoteServerProjects {
                                 .inset(true)
                                 .spacing(ui::ListItemSpacing::Sparse)
                                 .start_slot(Icon::new(IconName::Plus).color(Color::Muted))
-                                .child(Label::new("Open Folder"))
+                                .child(Label::new("開啟資料夾"))
                                 .on_click(cx.listener({
                                     let host = host.clone();
                                     move |this, _, window, cx| {
@@ -1639,7 +1639,7 @@ impl RemoteServerProjects {
                                             .icon_size(IconSize::Small)
                                             .shape(IconButtonShape::Square)
                                             .size(ButtonSize::Large)
-                                            .tooltip(Tooltip::text("Delete Remote Project"))
+                                            .tooltip(Tooltip::text("刪除遠端專案"))
                                             .on_click(cx.listener(move |this, _, _, cx| {
                                                 this.delete_remote_project(server_ix, &project, cx)
                                             }))
@@ -1959,7 +1959,7 @@ impl RemoteServerProjects {
                                         .start_slot(
                                             Icon::new(IconName::XCircle).color(Color::Error),
                                         )
-                                        .child(Label::new("Error Creating Dev Container:"))
+                                        .child(Label::new("建立 Dev Container 時發生錯誤："))
                                         .child(Label::new(message).buffer_font(cx)),
                                 ),
                             ),
@@ -1985,7 +1985,7 @@ impl RemoteServerProjects {
                                         .inset(true)
                                         .spacing(ui::ListItemSpacing::Sparse)
                                         .start_slot(Icon::new(IconName::File).color(Color::Muted))
-                                        .child(Label::new("Open Zed Log"))
+                                        .child(Label::new("開啟 Zed 記錄"))
                                         .on_click(cx.listener(|_, _, window, cx| {
                                             window.dispatch_action(Box::new(OpenLog), cx);
                                             cx.emit(DismissEvent);
@@ -2056,7 +2056,7 @@ impl RemoteServerProjects {
                                         h_flex()
                                             .opacity(0.6)
                                             .gap_1()
-                                            .child(Label::new("Creating Dev Container"))
+                                            .child(Label::new("正在建立 Dev Container"))
                                             .child(LoadingLabel::new("")),
                                     ),
                             ),
@@ -2141,7 +2141,7 @@ impl RemoteServerProjects {
                                         .size(LabelSize::Small),
                                     )
                                     .child(
-                                        Button::new("learn-more", "Learn More")
+                                        Button::new("learn-more", "了解更多")
                                             .label_size(LabelSize::Small)
                                             .end_icon(
                                                 Icon::new(IconName::ArrowUpRight)
@@ -2266,7 +2266,7 @@ impl RemoteServerProjects {
                                         .start_slot(
                                             Icon::new(IconName::ArrowLeft).color(Color::Muted),
                                         )
-                                        .child(Label::new("Go Back"))
+                                        .child(Label::new("返回"))
                                         .on_click(cx.listener(|this, _, window, cx| {
                                             this.mode =
                                                 Mode::default_mode(&this.ssh_config_servers, cx);
@@ -2304,7 +2304,7 @@ impl RemoteServerProjects {
                 window: &mut Window,
                 cx: &mut App,
             ) {
-                let prompt_message = format!("Remove WSL distro `{}`?", distro_name);
+                let prompt_message = format!("要移除 WSL 發行版「{}」嗎？", distro_name);
 
                 let confirmation = window.prompt(
                     PromptLevel::Warning,
@@ -2344,7 +2344,7 @@ impl RemoteServerProjects {
                         .inset(true)
                         .spacing(ui::ListItemSpacing::Sparse)
                         .start_slot(Icon::new(IconName::Trash).color(Color::Error))
-                        .child(Label::new("Remove Distro").color(Color::Error))
+                        .child(Label::new("移除發行版").color(Color::Error))
                         .on_click(cx.listener(move |_, _, window, cx| {
                             remove_wsl_distro(cx.entity(), index, distro_name.clone(), window, cx);
                             cx.focus_self(window);
@@ -2436,7 +2436,7 @@ impl RemoteServerProjects {
                             .inset(true)
                             .spacing(ui::ListItemSpacing::Sparse)
                             .start_slot(Icon::new(IconName::Copy).color(Color::Muted))
-                            .child(Label::new("Copy Server Address"))
+                            .child(Label::new("複製伺服器位址"))
                             .end_slot(Label::new(connection_string.clone()).color(Color::Muted))
                             .show_end_slot_on_hover()
                             .on_click({
@@ -2455,7 +2455,7 @@ impl RemoteServerProjects {
                     window: &mut Window,
                     cx: &mut App,
                 ) {
-                    let prompt_message = format!("Remove server `{}`?", connection_string);
+                    let prompt_message = format!("要移除伺服器「{}」嗎？", connection_string);
 
                     let confirmation = window.prompt(
                         PromptLevel::Warning,
@@ -2501,7 +2501,7 @@ impl RemoteServerProjects {
                             .inset(true)
                             .spacing(ui::ListItemSpacing::Sparse)
                             .start_slot(Icon::new(IconName::Trash).color(Color::Error))
-                            .child(Label::new("Remove Server").color(Color::Error))
+                            .child(Label::new("移除伺服器").color(Color::Error))
                             .on_click(cx.listener(move |_, _, window, cx| {
                                 remove_ssh_server(
                                     cx.entity(),
@@ -2635,7 +2635,7 @@ impl RemoteServerProjects {
                     .inset(true)
                     .spacing(ui::ListItemSpacing::Sparse)
                     .start_slot(Icon::new(IconName::Plus).color(Color::Muted))
-                    .child(Label::new("Connect SSH Server"))
+                    .child(Label::new("連線 SSH 伺服器"))
                     .on_click(cx.listener(|this, _, window, cx| {
                         let state = CreateRemoteServer::new(window, cx);
                         this.mode = Mode::CreateRemoteServer(state);
@@ -2665,7 +2665,7 @@ impl RemoteServerProjects {
                     .inset(true)
                     .spacing(ui::ListItemSpacing::Sparse)
                     .start_slot(Icon::new(IconName::Plus).color(Color::Muted))
-                    .child(Label::new("Connect Dev Container"))
+                    .child(Label::new("連線 Dev Container"))
                     .on_click(cx.listener(|this, _, window, cx| {
                         this.init_dev_container_mode(window, cx);
                     })),
@@ -2685,7 +2685,7 @@ impl RemoteServerProjects {
                     .inset(true)
                     .spacing(ui::ListItemSpacing::Sparse)
                     .start_slot(Icon::new(IconName::Plus).color(Color::Muted))
-                    .child(Label::new("Add WSL Distro"))
+                    .child(Label::new("加入 WSL 發行版"))
                     .on_click(cx.listener(|this, _, window, cx| {
                         let state = AddWslDistro::new(window, cx);
                         this.mode = Mode::AddWslDistro(state);
@@ -2749,7 +2749,7 @@ impl RemoteServerProjects {
                                 .border_t_1()
                                 .border_color(cx.theme().colors().border_variant)
                                 .child(
-                                    Label::new("No remote servers registered yet.")
+                                    Label::new("目前尚未註冊任何遠端伺服器。")
                                         .color(Color::Muted),
                                 )
                                 .into_any_element(),
@@ -2847,16 +2847,16 @@ impl RemoteServerProjects {
                     h_flex()
                         .gap_1()
                         .child(
-                            Button::new("open_new_window", "New Window")
+                            Button::new("open_new_window", "新增視窗")
                                 .key_binding(KeyBinding::for_action(&menu::SecondaryConfirm, cx))
                                 .on_click(|_, window, cx| {
                                     window.dispatch_action(menu::SecondaryConfirm.boxed_clone(), cx)
                                 }),
                         )
-                        .child(confirm_button("Open".into()))
+                        .child(confirm_button("開啟".into()))
                         .into_any_element()
                 } else {
-                    confirm_button("Select".into()).into_any_element()
+                    confirm_button("選取".into()).into_any_element()
                 }
             }))
             .into_any_element()

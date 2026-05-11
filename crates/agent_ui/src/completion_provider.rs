@@ -123,13 +123,13 @@ impl PromptContextType {
 
     pub fn label(&self) -> &'static str {
         match self {
-            Self::File => "Files & Directories",
-            Self::Symbol => "Symbols",
-            Self::Fetch => "Fetch",
-            Self::Thread => "Threads",
-            Self::Rules => "Rules",
-            Self::Diagnostics => "Diagnostics",
-            Self::BranchDiff => "Branch Diff",
+            Self::File => "檔案與目錄",
+            Self::Symbol => "符號",
+            Self::Fetch => "擷取",
+            Self::Thread => "對話",
+            Self::Rules => "規則",
+            Self::Diagnostics => "診斷",
+            Self::BranchDiff => "分支差異",
         }
     }
 

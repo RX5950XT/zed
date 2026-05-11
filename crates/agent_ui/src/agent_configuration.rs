@@ -432,7 +432,7 @@ impl AgentConfiguration {
 
         let popover_menu = PopoverMenu::new("add-provider-popover")
             .trigger(
-                Button::new("add-provider", "Add Provider")
+                Button::new("add-provider", "新增提供者")
                     .style(ButtonStyle::Outlined)
                     .start_icon(
                         Icon::new(IconName::Plus)
@@ -445,7 +445,7 @@ impl AgentConfiguration {
                 let workspace = self.workspace.clone();
                 move |window, cx| {
                     Some(ContextMenu::build(window, cx, |menu, _window, _cx| {
-                        menu.header("Compatible APIs").entry("OpenAI", None, {
+                        menu.header("相容 API").entry("OpenAI", None, {
                             let workspace = workspace.clone();
                             move |window, cx| {
                                 workspace
@@ -473,8 +473,8 @@ impl AgentConfiguration {
             .min_w_0()
             .w_full()
             .child(self.render_section_title(
-                "LLM Providers",
-                "Add at least one provider to use AI-powered features with Zed's native agent.",
+                "LLM 提供者",
+                "請至少新增一個提供者，以使用 Zed 原生代理的 AI 功能。",
                 popover_menu.into_any_element(),
             ))
             .child(
@@ -528,7 +528,7 @@ impl AgentConfiguration {
 
         let add_server_popover = PopoverMenu::new("add-server-popover")
             .trigger(
-                Button::new("add-server", "Add Server")
+                Button::new("add-server", "新增伺服器")
                     .style(ButtonStyle::Outlined)
                     .start_icon(
                         Icon::new(IconName::Plus)
@@ -540,12 +540,12 @@ impl AgentConfiguration {
             .menu({
                 move |window, cx| {
                     Some(ContextMenu::build(window, cx, |menu, _window, _cx| {
-                        menu.entry("Add Custom Server", None, {
+                        menu.entry("新增自訂伺服器", None, {
                             |window, cx| {
                                 window.dispatch_action(crate::AddContextServer.boxed_clone(), cx)
                             }
                         })
-                        .entry("Install from Extensions", None, {
+                        .entry("從擴充功能安裝", None, {
                             |window, cx| {
                                 window.dispatch_action(
                                     zed_actions::Extensions {
@@ -573,8 +573,8 @@ impl AgentConfiguration {
             .border_b_1()
             .border_color(cx.theme().colors().border)
             .child(self.render_section_title(
-                "Model Context Protocol (MCP) Servers",
-                "All MCP servers connected directly or via a Zed extension.",
+                "模型上下文協定 (MCP) 伺服器",
+                "所有直接連線或透過 Zed 擴充功能連線的 MCP 伺服器。", 
                 add_server_popover.into_any_element(),
             ))
             .child(
@@ -595,7 +595,7 @@ impl AgentConfiguration {
                                     .border_color(cx.theme().colors().border.opacity(0.6))
                                     .rounded_sm()
                                     .child(
-                                        Label::new("No MCP servers added yet.")
+                                        Label::new("尚未新增任何 MCP 伺服器。")
                                             .color(Color::Muted)
                                             .size(LabelSize::Small),
                                     ),
@@ -1006,7 +1006,7 @@ impl AgentConfiguration {
 
         let add_agent_popover = PopoverMenu::new("add-agent-server-popover")
             .trigger(
-                Button::new("add-agent", "Add Agent")
+                Button::new("add-agent", "新增代理")
                     .style(ButtonStyle::Outlined)
                     .start_icon(
                         Icon::new(IconName::Plus)
@@ -1039,7 +1039,7 @@ impl AgentConfiguration {
                             }
                         })
                         .separator()
-                        .header("Learn More")
+                        .header("了解更多")
                         .item(
                             ContextMenuEntry::new("ACP Docs")
                                 .icon(IconName::ArrowUpRight)
@@ -1072,8 +1072,8 @@ impl AgentConfiguration {
             .child(
                 v_flex()
                     .child(self.render_section_title(
-                        "External Agents",
-                        "All agents connected through the Agent Client Protocol.",
+                        "外部代理",
+                        "所有透過 Agent Client Protocol 連線的代理。", 
                         add_agent_popover.into_any_element(),
                     ))
                     .child(

@@ -9968,7 +9968,7 @@ impl Editor {
         if target_display_point.row().as_f64() < scroll_top {
             let mut element = self
                 .render_edit_prediction_line_popover(
-                    "Jump to Edit",
+                    "跳轉至編輯",
                     Some(IconName::ArrowUp),
                     window,
                     cx,
@@ -9987,7 +9987,7 @@ impl Editor {
         } else if (target_display_point.row().as_f64() + 1.) > scroll_bottom {
             let mut element = self
                 .render_edit_prediction_line_popover(
-                    "Jump to Edit",
+                    "跳轉至編輯",
                     Some(IconName::ArrowDown),
                     window,
                     cx,
@@ -10005,7 +10005,7 @@ impl Editor {
             Some((element, origin))
         } else {
             self.render_edit_prediction_end_of_line_popover(
-                "Jump to Edit",
+                "跳轉至編輯",
                 editor_snapshot,
                 visible_row_range,
                 target_display_point,
@@ -10710,7 +10710,7 @@ impl Editor {
                                     .child(self.render_edit_prediction_popover_keystroke(
                                         keystroke, key_color, cx,
                                     ))
-                                    .child(Label::new("Preview").into_any_element())
+                                    .child(Label::new("預覽").into_any_element())
                                     .opacity(if has_completion { 1.0 } else { 0.4 }),
                             )
                         } else {
@@ -10792,7 +10792,7 @@ impl Editor {
                         } else {
                             Icon::new(icons.up)
                         })
-                        .child(Label::new("Jump to Edit")),
+                        .child(Label::new("跳轉至編輯")),
                 )
             }
             EditPrediction::MoveOutside { snapshot, .. } => {
@@ -21235,7 +21235,7 @@ impl Editor {
                     .border_color(icon_color.opacity(0.5))
             })
             .child(Icon::new(IconName::Plus).size(IconSize::Small))
-            .tooltip(Tooltip::text("Add Review (drag to select multiple lines)"))
+            .tooltip(Tooltip::text("新增審閱（拖曳選取多行）"))
             .on_mouse_down(
                 gpui::MouseButton::Left,
                 cx.listener(move |editor, _event: &gpui::MouseDownEvent, window, cx| {
@@ -22215,7 +22215,7 @@ impl Editor {
                                 IconButton::new("diff-review-close", IconName::Close)
                                     .icon_color(ui::Color::Muted)
                                     .icon_size(action_icon_size)
-                                    .tooltip(Tooltip::text("Close"))
+                                    .tooltip(Tooltip::text("關閉"))
                                     .on_click(|_, window, cx| {
                                         window
                                             .dispatch_action(Box::new(crate::actions::Cancel), cx);
@@ -22225,7 +22225,7 @@ impl Editor {
                                 IconButton::new("diff-review-add", IconName::Return)
                                     .icon_color(ui::Color::Muted)
                                     .icon_size(action_icon_size)
-                                    .tooltip(Tooltip::text("Add comment"))
+                                    .tooltip(Tooltip::text("新增留言"))
                                     .on_click(|_, window, cx| {
                                         window.dispatch_action(
                                             Box::new(crate::actions::SubmitDiffReviewComment),
@@ -22385,7 +22385,7 @@ impl Editor {
                         )
                         .icon_color(ui::Color::Muted)
                         .icon_size(action_icon_size)
-                        .tooltip(Tooltip::text("Cancel"))
+                        .tooltip(Tooltip::text("取消"))
                         .on_click(move |_, window, cx| {
                             window.dispatch_action(
                                 Box::new(crate::actions::CancelEditReviewComment {
@@ -22402,7 +22402,7 @@ impl Editor {
                         )
                         .icon_color(ui::Color::Muted)
                         .icon_size(action_icon_size)
-                        .tooltip(Tooltip::text("Confirm"))
+                        .tooltip(Tooltip::text("確認"))
                         .on_click(move |_, window, cx| {
                             window.dispatch_action(
                                 Box::new(crate::actions::ConfirmEditReviewComment {
@@ -28434,7 +28434,7 @@ impl BreakpointPromptEditor {
             .icon_color(Color::Muted)
             .shape(IconButtonShape::Square)
             .tooltip(move |_window, cx| {
-                Tooltip::for_action_in("Cancel", &menu::Cancel, &focus_handle, cx)
+                Tooltip::for_action_in("取消", &menu::Cancel, &focus_handle, cx)
             })
             .on_click(cx.listener(|this, _, window, cx| {
                 this.cancel(&menu::Cancel, window, cx);
@@ -28447,7 +28447,7 @@ impl BreakpointPromptEditor {
             .icon_color(Color::Muted)
             .shape(IconButtonShape::Square)
             .tooltip(move |_window, cx| {
-                Tooltip::for_action_in("Confirm", &menu::Confirm, &focus_handle, cx)
+                Tooltip::for_action_in("確認", &menu::Confirm, &focus_handle, cx)
             })
             .on_click(cx.listener(|this, _, window, cx| {
                 this.confirm(&menu::Confirm, window, cx);
@@ -28613,7 +28613,7 @@ fn render_diff_hunk_controls(
                     let focus_handle = editor.focus_handle(cx);
                     move |_window, cx| {
                         Tooltip::for_action_in(
-                            "Stage Hunk",
+                            "暫存區塊",
                             &::git::ToggleStaged,
                             &focus_handle,
                             cx,
@@ -28639,7 +28639,7 @@ fn render_diff_hunk_controls(
                     let focus_handle = editor.focus_handle(cx);
                     move |_window, cx| {
                         Tooltip::for_action_in(
-                            "Unstage Hunk",
+                            "取消暫存區塊",
                             &::git::ToggleStaged,
                             &focus_handle,
                             cx,
@@ -28664,7 +28664,7 @@ fn render_diff_hunk_controls(
                 .tooltip({
                     let focus_handle = editor.focus_handle(cx);
                     move |_window, cx| {
-                        Tooltip::for_action_in("Restore Hunk", &::git::Restore, &focus_handle, cx)
+                        Tooltip::for_action_in("還原區塊", &::git::Restore, &focus_handle, cx)
                     }
                 })
                 .on_click({
@@ -28690,7 +28690,7 @@ fn render_diff_hunk_controls(
                         .tooltip({
                             let focus_handle = editor.focus_handle(cx);
                             move |_window, cx| {
-                                Tooltip::for_action_in("Next Hunk", &GoToHunk, &focus_handle, cx)
+                                Tooltip::for_action_in("下一個區塊", &GoToHunk, &focus_handle, cx)
                             }
                         })
                         .on_click({
@@ -28722,7 +28722,7 @@ fn render_diff_hunk_controls(
                             let focus_handle = editor.focus_handle(cx);
                             move |_window, cx| {
                                 Tooltip::for_action_in(
-                                    "Previous Hunk",
+                                    "上一個區塊",
                                     &GoToPreviousHunk,
                                     &focus_handle,
                                     cx,

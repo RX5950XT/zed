@@ -8237,7 +8237,7 @@ pub fn render_breadcrumb_text(
                                     h_flex()
                                         .gap_1()
                                         .justify_between()
-                                        .child(Label::new("Show Symbol Outline"))
+                                        .child(Label::new("顯示符號大綱"))
                                         .child(ui::KeyBinding::for_action_in(
                                             &zed_actions::outline::ToggleOutline,
                                             &focus_handle,
@@ -8521,9 +8521,9 @@ pub(crate) fn render_buffer_header(
                                         move |_window, cx| {
                                             Tooltip::with_meta_in(
                                                 if is_folded_for_tooltip {
-                                                    "Unfold Excerpt"
+                                                    "展開摘錄"
                                                 } else {
-                                                    "Fold Excerpt"
+                                                    "收合摘錄"
                                                 },
                                                 Some(&ToggleFold),
                                                 format!(
@@ -8623,7 +8623,7 @@ pub(crate) fn render_buffer_header(
                                             )
                                             .tooltip(move |_, cx| {
                                                 Tooltip::with_meta(
-                                                    "Open File",
+                                                    "開啟檔案",
                                                     None,
                                                     full_path.clone(),
                                                     cx,
@@ -8683,7 +8683,7 @@ pub(crate) fn render_buffer_header(
                                         this.visible_on_hover("buffer-header-group")
                                     })
                                     .child(
-                                        Button::new("open-file-button", "Open File")
+                                        Button::new("open-file-button", "開啟檔案")
                                             .style(ButtonStyle::OutlinedGhost)
                                             .when(is_selected, |this| {
                                                 this.key_binding(KeyBinding::for_action_in(
@@ -8772,7 +8772,7 @@ pub(crate) fn render_buffer_header(
                     menu = menu
                         .when_some(abs_path, |menu, abs_path| {
                             menu.entry(
-                                "Copy Path",
+                                "複製路徑",
                                 Some(Box::new(zed_actions::workspace::CopyPath)),
                                 window.handler_for(&editor, move |_, _, cx| {
                                     cx.write_to_clipboard(ClipboardItem::new_string(
@@ -8783,7 +8783,7 @@ pub(crate) fn render_buffer_header(
                         })
                         .when_some(relative_path, |menu, relative_path| {
                             menu.entry(
-                                "Copy Relative Path",
+                                "複製相對路徑",
                                 Some(Box::new(zed_actions::workspace::CopyRelativePath)),
                                 window.handler_for(&editor, move |_, _, cx| {
                                     cx.write_to_clipboard(ClipboardItem::new_string(
@@ -8798,7 +8798,7 @@ pub(crate) fn render_buffer_header(
                         )
                         .when_some(reveal_in_project_panel, |menu, entry_id| {
                             menu.entry(
-                                "Reveal In Project Panel",
+                                "在專案面板中顯示",
                                 Some(Box::new(RevealInProjectPanel::default())),
                                 window.handler_for(&editor, move |editor, _, cx| {
                                     if let Some(project) = &mut editor.project {

@@ -179,17 +179,17 @@ pub fn init(cx: &mut App) {
 
 fn extension_provides_label(provides: ExtensionProvides) -> &'static str {
     match provides {
-        ExtensionProvides::Themes => "Themes",
-        ExtensionProvides::IconThemes => "Icon Themes",
-        ExtensionProvides::Languages => "Languages",
-        ExtensionProvides::Grammars => "Grammars",
-        ExtensionProvides::LanguageServers => "Language Servers",
-        ExtensionProvides::ContextServers => "MCP Servers",
-        ExtensionProvides::AgentServers => "Agent Servers",
-        ExtensionProvides::SlashCommands => "Slash Commands",
-        ExtensionProvides::IndexedDocsProviders => "Indexed Docs Providers",
-        ExtensionProvides::Snippets => "Snippets",
-        ExtensionProvides::DebugAdapters => "Debug Adapters",
+        ExtensionProvides::Themes => "主題",
+        ExtensionProvides::IconThemes => "圖示主題",
+        ExtensionProvides::Languages => "語言",
+        ExtensionProvides::Grammars => "語法",
+        ExtensionProvides::LanguageServers => "語言伺服器",
+        ExtensionProvides::ContextServers => "MCP 伺服器",
+        ExtensionProvides::AgentServers => "Agent 伺服器",
+        ExtensionProvides::SlashCommands => "斜線指令",
+        ExtensionProvides::IndexedDocsProviders => "索引文件提供者",
+        ExtensionProvides::Snippets => "程式碼片段",
+        ExtensionProvides::DebugAdapters => "偵錯配接器",
     }
 }
 
@@ -363,7 +363,7 @@ impl ExtensionsPage {
 
             let query_editor = cx.new(|cx| {
                 let mut input = Editor::single_line(window, cx);
-                input.set_placeholder_text("Search extensions...", window, cx);
+                input.set_placeholder_text("搜尋擴充功能...", window, cx);
                 if let Some(id) = focus_extension_id {
                     input.set_text(format!("id:{id}"), window, cx);
                 }
@@ -681,7 +681,7 @@ impl ExtensionsPage {
                                 }),
                             )
                             .child(
-                                Button::new(extension_button_id(&extension.id, ExtensionOperation::Remove), "Uninstall")
+                                Button::new(extension_button_id(&extension.id, ExtensionOperation::Remove), "解除安裝")
                                     .color(Color::Accent)
                                     .disabled(matches!(status, ExtensionStatus::Removing))
                                     .on_click({
@@ -1152,7 +1152,7 @@ impl ExtensionsPage {
                     None
                 } else {
                     Some(
-                        Button::new(extension_button_id(&extension.id, ExtensionOperation::Upgrade), "Upgrade")
+                        Button::new(extension_button_id(&extension.id, ExtensionOperation::Upgrade), "升級")
                           .style(ButtonStyle::Tinted(ui::TintColor::Accent))
                             .when(!is_compatible, |upgrade_button| {
                                 upgrade_button.disabled(true).tooltip({
@@ -1463,7 +1463,7 @@ impl ExtensionsPage {
     fn render_acp_registry_upsell(&self, cx: &mut Context<Self>) -> impl IntoElement {
         let registry_url = zed_urls::acp_registry_blog(cx);
 
-        let view_registry = Button::new("view_registry", "View Registry")
+        let view_registry = Button::new("view_registry", "檢視 Registry")
             .style(ButtonStyle::Tinted(ui::TintColor::Warning))
             .on_click({
                 let registry_url = registry_url.clone();
@@ -1476,7 +1476,7 @@ impl ExtensionsPage {
                     window.dispatch_action(Box::new(zed_actions::AcpRegistry), cx)
                 }
             });
-        let open_registry_button = Button::new("open_registry", "Learn More")
+        let open_registry_button = Button::new("open_registry", "了解更多")
             .end_icon(
                 Icon::new(IconName::ArrowUpRight)
                     .size(IconSize::Small)
@@ -1518,7 +1518,7 @@ impl ExtensionsPage {
         vim: bool,
         cx: &mut Context<Self>,
     ) -> impl IntoElement {
-        let docs_url_button = Button::new("open_docs", "View Documentation")
+        let docs_url_button = Button::new("open_docs", "檢視文件")
             .end_icon(Icon::new(IconName::ArrowUpRight).size(IconSize::Small))
             .on_click({
                 move |_event, _window, cx| {
@@ -1549,7 +1549,7 @@ impl ExtensionsPage {
                                         h_flex()
                                             .pl_1()
                                             .gap_1()
-                                            .child(Label::new("Enable Vim mode"))
+                                            .child(Label::new("啟用 Vim 模式"))
                                             .child(
                                                 Switch::new(
                                                     "enable-vim",
@@ -1725,7 +1725,7 @@ impl Render for ExtensionsPage {
                             .justify_between()
                             .child(Headline::new("Extensions").size(HeadlineSize::Large))
                             .child(
-                                Button::new("install-dev-extension", "Install Dev Extension")
+                                Button::new("install-dev-extension", "安裝開發擴充功能")
                                     .style(ButtonStyle::Outlined)
                                     .size(ButtonSize::Medium)
                                     .on_click(|_event, window, cx| {
@@ -1794,7 +1794,7 @@ impl Render for ExtensionsPage {
                     .border_color(cx.theme().colors().border_variant)
                     .overflow_x_scroll()
                     .child(
-                        Button::new("filter-all-categories", "All")
+                        Button::new("filter-all-categories", "全部")
                             .when(self.provides_filter.is_none(), |button| {
                                 button.style(ButtonStyle::Filled)
                             })

@@ -411,7 +411,7 @@ impl PickerDelegate for LanguageModelPickerDelegate {
     }
 
     fn placeholder_text(&self, _window: &mut Window, _cx: &mut App) -> Arc<str> {
-        "Select a model…".into()
+        "選擇模型…".into()
     }
 
     fn update_matches(

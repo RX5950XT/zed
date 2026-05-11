@@ -728,7 +728,7 @@ mod remote_button {
     ) -> SplitButton {
         split_button(
             id,
-            "Fetch",
+            "擷取",
             0,
             0,
             Some(IconName::ArrowCircle),
@@ -755,7 +755,7 @@ mod remote_button {
     ) -> SplitButton {
         split_button(
             id,
-            "Push",
+            "推送",
             ahead as usize,
             0,
             None,
@@ -783,7 +783,7 @@ mod remote_button {
     ) -> SplitButton {
         split_button(
             id,
-            "Pull",
+            "拉取",
             ahead as usize,
             behind as usize,
             None,
@@ -809,7 +809,7 @@ mod remote_button {
     ) -> SplitButton {
         split_button(
             id,
-            "Publish",
+            "發布",
             0,
             0,
             Some(IconName::ExpandUp),
@@ -835,7 +835,7 @@ mod remote_button {
     ) -> SplitButton {
         split_button(
             id,
-            "Republish",
+            "重新發布",
             0,
             0,
             Some(IconName::ExpandUp),
@@ -1118,7 +1118,7 @@ impl Render for GitCloneModal {
                             .size(LabelSize::Small),
                     )
                     .child(
-                        Button::new("learn-more", "Learn More")
+                        Button::new("learn-more", "了解更多")
                             .label_size(LabelSize::Small)
                             .end_icon(Icon::new(IconName::ArrowUpRight).size(IconSize::XSmall))
                             .on_click(|_, _, cx| {
